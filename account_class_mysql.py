@@ -1,7 +1,7 @@
 import sqlite3
 
 
-class Account:
+class Account:  # mysql?
 
     id = None
 
@@ -9,7 +9,7 @@ class Account:
 
         # create database if it not exists
 
-        conn = sqlite3.connect('accounts_bd.db')
+        conn = sqlite3.connect('accounts_bd_sqlite.db')
 
         cur = conn.cursor()
 
@@ -21,7 +21,7 @@ class Account:
 
     def sign_up(self, account_data):
 
-        conn = sqlite3.connect('accounts_bd.db')
+        conn = sqlite3.connect('accounts_bd_sqlite.db')
 
         cur = conn.cursor()
 
@@ -47,7 +47,7 @@ class Account:
 
     def sign_in(self, account_data):
 
-        conn = sqlite3.connect('accounts_bd.db')
+        conn = sqlite3.connect('accounts_bd_sqlite.db')
 
         cur = conn.cursor()
 
@@ -69,7 +69,7 @@ class Account:
 
     def plus_money(self, amount):
 
-        conn = sqlite3.connect('accounts_bd.db')
+        conn = sqlite3.connect('accounts_bd_sqlite.db')
 
         cur = conn.cursor()
 
@@ -87,7 +87,7 @@ class Account:
 
     def minus_money(self, amount):
 
-        conn = sqlite3.connect('accounts_bd.db')
+        conn = sqlite3.connect('accounts_bd_sqlite.db')
 
         cur = conn.cursor()
 
