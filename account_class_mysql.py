@@ -1,7 +1,7 @@
 import sqlite3
 
 
-class Account:  # mysql?
+class Account:
 
     id = None
 
