@@ -1,5 +1,4 @@
-from mysql.connector import Error, connect
-from getpass import getpass
+from mysql.connector import connect
 
 server_data = ['localhost', 'root', '123asd159ZXC']
 
@@ -57,7 +56,8 @@ class Account:
         cur.execute(
             '''CREATE TABLE IF NOT EXISTS cash_data(
             id INT AUTO_INCREMENT PRIMARY KEY,
-            cash INT
+            cash INT,
+            FOREIGN KEY (id) REFERENCES register_data(id) ON DELETE CASCADE ON UPDATE CASCADE
             )'''
         )
 
