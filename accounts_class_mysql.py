@@ -33,7 +33,7 @@ class Account:
 
         conn.close()
 
-        # create table if it not exists
+        # create table with login/password data if it not exists
 
         conn = connect(
             host=server_data[0],
@@ -45,13 +45,21 @@ class Account:
         cur = conn.cursor()
 
         cur.execute(
-            '''CREATE TABLE IF NOT EXISTS accounts(
-            id INT AUTO_INCREMENT PRIMARY KEY, 
-            cash INT, 
+            '''CREATE TABLE IF NOT EXISTS register_data(
+            id INT AUTO_INCREMENT PRIMARY KEY,  
             login VARCHAR(100), 
             password VARCHAR(100)
             )'''
-        )  # TODO разнести в две отдельные таблицы
+        )
+
+        # create table with cash data if it not exists
+
+        cur.execute(
+            '''CREATE TABLE IF NOT EXISTS cash_data(
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            cash INT
+            )'''
+        )
 
         conn.commit()
 
@@ -70,13 +78,17 @@ class Account:
 
         cur = conn.cursor()
 
-        new_user_data = (0, account_data[0], account_data[1])
+        new_user_data = (account_data[0], account_data[1])
 
-        cur.execute('INSERT INTO accounts(cash, login, password) VALUES(%s, %s, %s)', new_user_data)
+        cur.execute('INSERT INTO register_data(login, password) VALUES(%s, %s)', new_user_data)
 
-        cur.execute('SELECT MAX(id) FROM accounts')
+        new_user_cash = (0,)
 
-        self.id = cur.fetchall()[0]
+        cur.execute('INSERT INTO cash_data(cash) VALUES(%s)', new_user_cash)
+
+        cur.execute('SELECT MAX(id) FROM register_data')
+
+        self.id = cur.fetchone()[0]
 
         conn.commit()
 
@@ -95,7 +107,7 @@ class Account:
 
         cur = conn.cursor()
 
-        cur.execute('SELECT id FROM accounts WHERE login = %s and password = %s', account_data)
+        cur.execute('SELECT id FROM register_data WHERE login = %s and password = %s', account_data)
 
         row = cur.fetchone()
 
@@ -124,13 +136,13 @@ class Account:
 
         cur = conn.cursor()
 
-        cur.execute('SELECT cash FROM accounts WHERE id = %s', (self.id,))
+        cur.execute('SELECT cash FROM cash_data WHERE id = %s', (self.id,))
 
         amount += cur.fetchone()[0]
 
         data = (amount, self.id)
 
-        cur.execute('UPDATE accounts SET cash = %s WHERE id = %s', data)
+        cur.execute('UPDATE cash_data SET cash = %s WHERE id = %s', data)
 
         conn.commit()
 
@@ -149,7 +161,7 @@ class Account:
 
         cur = conn.cursor()
 
-        cur.execute('SELECT cash FROM accounts WHERE id = %s', (self.id,))
+        cur.execute('SELECT cash FROM cash_data WHERE id = %s', (self.id,))
 
         amount = cur.fetchone()[0] - amount
 
@@ -165,7 +177,7 @@ class Account:
 
             data = (amount, self.id)
 
-            cur.execute('UPDATE accounts SET cash = %s WHERE id = %s', data)
+            cur.execute('UPDATE cash_data SET cash = %s WHERE id = %s', data)
 
             conn.commit()
 
@@ -176,6 +188,30 @@ class Account:
 
 account_1 = Account()
 
-account_1.sign_in([input('Enter you login... '), input('Enter you password... ')])
-account_1.plus_money(1002)
-account_1.minus_money(1000)
+user_data = [input('Enter you login... '), input('Enter you password... ')]
+
+if not account_1.sign_in(user_data):
+    account_1.sign_up(user_data)
+
+while True:
+
+    turn = input('"q" if you want quit.\n+ or - ? ')
+
+    if turn == 'q':
+        break
+
+    while turn not in ['+', '-']:
+        turn = input('Incorrect value!\n"+" or "-" ? ')
+
+    amount = int(input('Amount? '))
+
+    while not type(amount) is int:
+        amount = int(input('Incorrect value!\nAmount?(Integer) '))
+
+    if turn == '+':
+        account_1.plus_money(amount)
+
+    else:
+        account_1.minus_money(amount)
+
+print('Thanks for using.')
