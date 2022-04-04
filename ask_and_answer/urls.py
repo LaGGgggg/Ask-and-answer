@@ -15,14 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path
+from django.views.generic import TemplateView
 
-from home_page_app import views  # ignore this import error, all works correctly.
+from home_page_app import views  # ignore this import error, all works correct.
 
 urlpatterns = [
     path('user-info/<str:user_name>/<int:user_id>', views.user_info),
     path('admin/', admin.site.urls),
-    path('', views.index),
-    path('about', views.about),
-    path('contact', views.contact),
-    re_path(r'', views.error),
+    path('', TemplateView.as_view(template_name='home_page/index.html')),
+    path('about', TemplateView.as_view(template_name='home_page/about.html')),
+    path('contact', TemplateView.as_view(template_name='home_page/contact.html')),
+    re_path(r'', TemplateView.as_view(template_name='home_page/error.html')),
 ]
