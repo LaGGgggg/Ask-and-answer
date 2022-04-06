@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends 'base.html' %}
+{% block header %}
+    Sign in:
+{% endblock header %}
+{% block content %}
+    <form method='POST'>
+        {% csrf_token %}
+        <table>
+            {{ form }}
+        </table>
+        <input type="submit" value="Send">
+    </form>
+{% endblock content %}
+</html>

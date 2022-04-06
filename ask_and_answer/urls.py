@@ -20,8 +20,9 @@ from django.views.generic import TemplateView
 from home_page_app import views  # ignore this import error, all works correct.
 
 urlpatterns = [
-    path('user-info/<str:user_name>/<int:user_id>', views.user_info),
     path('admin/', admin.site.urls),
+    path('user-info', views.user_info),
+    path('sign-in', views.sign_in),
     path('', TemplateView.as_view(template_name='home_page/index.html')),
     path('about', TemplateView.as_view(template_name='home_page/about.html')),
     path('contact', TemplateView.as_view(template_name='home_page/contact.html')),

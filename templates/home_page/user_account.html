@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 {% extends 'base.html' %}
-{% load static %}
 {% block header %}
-    Hello everyone!
+    You account
 {% endblock header %}
 {% block content %}
-    <p>Listen:<br>"Houii."<br><br>What?</p>
-    <img src="{% static 'images/factorio.png'%}">
+    <ul>
+        <li>
+            {{ login }}
+        </li>
+        <li>
+            {{ password }}
+        </li>
+    </ul>
 {% endblock content %}
 </html>
