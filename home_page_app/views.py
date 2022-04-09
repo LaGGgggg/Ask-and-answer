@@ -14,7 +14,7 @@ def sign_in(request):
 
     sign_in_form = SignInForm()
 
-    if request.method == 'POST':  # TODO доделать
+    if request.method == 'POST':
 
         user_data = (request.POST.get('login'), request.POST.get('password'))
 
@@ -22,18 +22,29 @@ def sign_in(request):
             host=server_data[0],
             user=server_data[1],
             password=server_data[2],
-            database='account_bd_mysql'  # TODO не вышло подключиться, надо посмотреть как это сделать вообще не через
-        )                                # TODO workbench
+            database='accounts_bd_mysql',
+        )
 
         cur = conn.cursor()
 
-        cur.execute('SELECT EXISTS(SELECT id FROM register_data WHERE login = %s and password = %s)', user_data)
+        cur.execute('SELECT id FROM register_data WHERE login = %s and password = %s', user_data)
 
-        from django.http import HttpResponse
+        user_id = cur.fetchone()
 
-        return HttpResponse(str(cur.fetchall()))
+        if user_id is None:
 
-        return render(request, 'home_page/user_account.html', {'login': user_data[0], 'password': user_data[1]})
+            return render(request, 'home_page/sign_in.html', {'form': sign_in_form,
+                                                              'comment': 'Wrong data, try again.'})
+
+        else:
+
+            render_data = {
+                'login': user_data[0],
+                'password': user_data[1],
+                'user_id': user_id[0],
+            }
+
+            return render(request, 'home_page/user_account.html', render_data)
 
     else:
 

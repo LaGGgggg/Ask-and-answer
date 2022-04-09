@@ -78,8 +78,10 @@ WSGI_APPLICATION = 'ask_and_answer.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'OPTIONS': {
+            'read_default_file': 'ask_and_answer/ask_and_answer_config.cnf'
+        },
     }
 }
 

@@ -6,6 +6,7 @@
 {% endblock header %}
 {% block content %}
     <form method='POST'>
+        {{ comment }}
         {% csrf_token %}
         <table>
             {{ form }}
