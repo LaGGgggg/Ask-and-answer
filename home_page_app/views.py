@@ -7,6 +7,8 @@ from .forms import *
 
 from mysql.connector import connect
 
+# server data for mysql
+
 server_data = ['localhost', 'root', '123asd159ZXC']
 
 
@@ -16,37 +18,54 @@ def sign_in(request):
 
     if request.method == 'POST':
 
-        user_data = (request.POST.get('login'), request.POST.get('password'))
+        user_form = SignInForm(request.POST)
 
-        conn = connect(
-            host=server_data[0],
-            user=server_data[1],
-            password=server_data[2],
-            database='accounts_bd_mysql',
-        )
+        if user_form.is_valid():
 
-        cur = conn.cursor()
+            user_data = (request.POST.get('login'), request.POST.get('password'))
 
-        cur.execute('SELECT id FROM register_data WHERE login = %s and password = %s', user_data)
+            conn = connect(
+                host=server_data[0],
+                user=server_data[1],
+                password=server_data[2],
+                database='accounts_bd_mysql',
+            )
 
-        user_id = cur.fetchone()
+            cur = conn.cursor()
 
-        if user_id is None:
+            cur.execute('SELECT id FROM register_data WHERE login = %s and password = %s', user_data)
+
+            user_id = cur.fetchone()
+
+            if user_id is None:
+
+                # no account in database
+
+                return render(request, 'home_page/sign_in.html', {'form': sign_in_form,
+                                                                  'comment': 'Wrong data, try again.'})
+
+            else:
+
+                # account in database, return account page
+
+                render_data = {
+                    'login': user_data[0],
+                    'password': user_data[1],
+                    'user_id': user_id[0],
+                }
+
+                return render(request, 'home_page/user_account.html', render_data)
+
+        else:
+
+            # invalid user data page
 
             return render(request, 'home_page/sign_in.html', {'form': sign_in_form,
                                                               'comment': 'Wrong data, try again.'})
 
-        else:
-
-            render_data = {
-                'login': user_data[0],
-                'password': user_data[1],
-                'user_id': user_id[0],
-            }
-
-            return render(request, 'home_page/user_account.html', render_data)
-
     else:
+
+        # standard data input page
 
         return render(request, 'home_page/sign_in.html', {'form': sign_in_form})
 
