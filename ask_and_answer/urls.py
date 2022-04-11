@@ -22,8 +22,7 @@ from home_page_app import views  # ignore this import error, all works correct.
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('sign-in', views.sign_in),
+    path('sign-up', views.sign_up),
     path('', TemplateView.as_view(template_name='home_page/index.html')),
-    path('about', TemplateView.as_view(template_name='home_page/about.html')),
-    path('contact', TemplateView.as_view(template_name='home_page/contact.html')),
     re_path(r'', TemplateView.as_view(template_name='home_page/error.html')),
 ]

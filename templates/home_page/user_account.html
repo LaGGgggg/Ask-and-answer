@@ -6,15 +6,12 @@
 {% endblock header %}
 {% block content %}
     <ul>
+        {% for key, value in data.items %}
         <li>
-            {{ user_id }}
+            {{ key }}:
+            {{ value }}
         </li>
-        <li>
-            {{ login }}
-        </li>
-        <li>
-            {{ password }}
-        </li>
+        {% endfor %}
     </ul>
 {% endblock content %}
 </html>

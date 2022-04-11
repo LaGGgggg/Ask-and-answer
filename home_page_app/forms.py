@@ -3,7 +3,12 @@ from django import forms
 
 class SignInForm(forms.Form):
 
-    login = forms.CharField()
-    password = forms.CharField(widget=forms.widgets.PasswordInput())
+    login = forms.CharField(widget=forms.widgets.TextInput(attrs={'class': 'default-input'}))
+    password = forms.CharField(widget=forms.widgets.PasswordInput(attrs={'class': 'default-input'}))
 
-    error_css_class = 'error'  # TODO чек документацию нужно это и можно ли использовать
+
+class SignUpForm(forms.Form):
+
+    login = forms.CharField(widget=forms.widgets.TextInput(attrs={'class': 'default-input'}))
+    password = forms.CharField(widget=forms.widgets.PasswordInput(attrs={'class': 'default-input'}))
+    password_confirm = forms.CharField(widget=forms.widgets.PasswordInput(attrs={'class': 'default-input'}))

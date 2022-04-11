@@ -8,10 +8,10 @@
     </style>
 {% endblock head_extra %}
 {% block header %}
-    Sign in:
+    Sign up:
 {% endblock header %}
 {% block content %}
-    <form method='POST'>
+    <form method="POST">
         {% csrf_token %}
         <div class="error">{{ comment }}</div>
         <div>
