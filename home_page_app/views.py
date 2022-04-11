@@ -14,15 +14,13 @@ server_data = ['localhost', 'root', '123asd159ZXC']
 
 def sign_in(request):
 
-    sign_in_form = SignInForm()
-
     if request.method == 'POST':
 
         user_form = SignInForm(request.POST)
 
         if user_form.is_valid():
 
-            user_data = (request.POST.get('login'), request.POST.get('password'))
+            user_data = (user_form.cleaned_data['login'], user_form.cleaned_data['password'])
 
             conn = connect(
                 host=server_data[0],
@@ -41,8 +39,7 @@ def sign_in(request):
 
                 # no account in database
 
-                return render(request, 'home_page/sign_in.html', {'form': sign_in_form,
-                                                                  'comment': 'Wrong data, try again.'})
+                return render(request, 'home_page/sign_in.html', {'form': user_form})
 
             else:
 
@@ -60,14 +57,15 @@ def sign_in(request):
 
             # invalid user data page
 
-            return render(request, 'home_page/sign_in.html', {'form': sign_in_form,
-                                                              'comment': 'Wrong data, try again.'})
+            return render(request, 'home_page/sign_in.html', {'form': user_form})
 
     else:
 
         # standard data input page
 
-        return render(request, 'home_page/sign_in.html', {'form': sign_in_form})
+        user_form = SignInForm()
+
+        return render(request, 'home_page/sign_in.html', {'form': user_form})
 
 
 def user_info(request):
