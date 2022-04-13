@@ -5,11 +5,11 @@ from .forms import *
 
 # mysql:
 
-from mysql.connector import connect
+from psycopg2 import connect
 
 # server data for mysql
 
-server_data = ['localhost', 'root', '123asd159ZXC']
+server_data = ['localhost', 'postgres', '123asd159ZXC', '5432', 'accounts_bd_pg']
 
 
 def sign_in(request):
@@ -26,7 +26,8 @@ def sign_in(request):
                 host=server_data[0],
                 user=server_data[1],
                 password=server_data[2],
-                database='accounts_bd_mysql',
+                port=server_data[3],
+                database=server_data[4],
             )
 
             cur = conn.cursor()
@@ -98,7 +99,8 @@ def sign_up(request):
                 host=server_data[0],
                 user=server_data[1],
                 password=server_data[2],
-                database='accounts_bd_mysql',
+                port=server_data[3],
+                database=server_data[4],
             )
 
             cur = conn.cursor()

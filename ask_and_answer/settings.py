@@ -78,11 +78,17 @@ WSGI_APPLICATION = 'ask_and_answer.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'OPTIONS': {
-            'read_default_file': 'ask_and_answer/ask_and_answer_config.cnf'
-        },
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'accounts_bd_pg',
+        'USER': 'postgres',
+        'PASSWORD': '123asd159ZXC',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
+    #'OPTIONS': {
+    #   'service': 'ask_and_answer_config.cnf',  # TODO
+    #   'passfile': 'ask_and_answer_pgpass.my_pgpass'
+    # }
 }
 
 

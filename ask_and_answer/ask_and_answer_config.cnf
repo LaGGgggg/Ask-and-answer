@@ -1,5 +1,5 @@
 [client]
-database = accounts_bd_mysql
-user = root
+dbname = accounts_bd_pg
+user = postgres
 password = 123asd159ZXC
-default-character-set = utf8
+port = 5432
