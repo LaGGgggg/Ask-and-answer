@@ -1,5 +1,0 @@
-[client]
-dbname = accounts_bd_pg
-user = postgres
-password = 123asd159ZXC
-port = 5432

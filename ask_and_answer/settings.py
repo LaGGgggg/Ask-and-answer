@@ -85,10 +85,6 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': '5432',
     }
-    #'OPTIONS': {
-    #   'service': 'ask_and_answer_config.cnf',  # TODO
-    #   'passfile': 'ask_and_answer_pgpass.my_pgpass'
-    # }
 }
 
 
