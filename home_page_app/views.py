@@ -2,17 +2,18 @@
 
 from django.shortcuts import render
 from .forms import *
+from .models import *
 
-# mysql:
+# postgresql:
 
 from psycopg2 import connect
 
-# server data for mysql
+# server data for mysql  # TODO del
 
-server_data = ['localhost', 'postgres', '123asd159ZXC', '5432', 'accounts_bd_pg']
+server_data = ['localhost', 'postgres', '123asd159ZXC', '5432', 'accounts_bd_pg']  # TODO del
 
 
-def sign_in(request):
+def del_sign_in(request):
 
     if request.method == 'POST':
 
@@ -83,7 +84,7 @@ def sign_in(request):
         return render(request, 'home_page/sign_in.html', {'form': user_form})
 
 
-def sign_up(request):
+def del_sign_up(request):
 
     if request.method == 'POST':
 
@@ -137,6 +138,88 @@ def sign_up(request):
             # invalid user data page
 
             return render(request, 'home_page/sign_up.html', {'form': user_form, 'comment': "Passwords didn't match."})
+
+    else:
+
+        # standard data input page
+
+        user_form = SignUpForm()
+
+        return render(request, 'home_page/sign_up.html', {'form': user_form})
+
+
+def sign_in(request):
+
+    if request.method == 'POST':
+
+        user_form = SignInForm(request.POST)
+
+        if user_form.is_valid():
+
+            try:
+
+                # check user exists
+
+                user = User.objects.get(
+                    login=user_form.cleaned_data['login'],
+                    password=user_form.cleaned_data['password']
+                )
+
+            except User.DoesNotExist:
+                return render(request, 'home_page/sign_in.html', {'form': user_form,
+                                                                  'comment': 'Invalid login or password.'})
+
+            # user exists
+
+            return render(request, 'home_page/user_account.html', {'data': user})
+
+        else:
+
+            # invalid user data page
+
+            return render(request, 'home_page/sign_in.html', {'form': user_form, 'comment': 'Invalid data, try again.'})
+
+    else:
+
+        # standard data input page
+
+        user_form = SignInForm()
+
+        return render(request, 'home_page/sign_in.html', {'form': user_form})
+
+
+def sign_up(request):
+
+    if request.method == 'POST':
+
+        user_form = SignUpForm(request.POST)
+
+        if user_form.is_valid():
+
+            user_data = [user_form.cleaned_data['login'], user_form.cleaned_data['password']]
+
+            try:
+
+                # check "login already exists"
+
+                User.objects.get(login=user_data[0])
+
+            except User.DoesNotExist:
+
+                # if login not already exists, create new user
+
+                user = User.objects.create(login=user_data[0], password=user_data[1])
+
+                return render(request, 'home_page/user_account.html', {'data': user})
+
+            return render(request, 'home_page/sign_up.html', {'form': user_form,
+                                                              'comment': 'This login is already use, enter another please.'})
+
+        else:
+
+            # invalid user data page
+
+            return render(request, 'home_page/sign_up.html', {'form': user_form, 'comment': 'Invalid data, try again.'})
 
     else:
 
