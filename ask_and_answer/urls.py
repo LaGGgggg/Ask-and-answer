@@ -14,15 +14,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, re_path
-from django.views.generic import TemplateView
+from django.urls import path, re_path, include
 
-from home_page_app import views  # ignore this import error, all works correct.
+from django.views.generic import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('sign-in', views.sign_in),
-    path('sign-up', views.sign_up),
-    path('', TemplateView.as_view(template_name='home_page/index.html')),
-    re_path(r'', TemplateView.as_view(template_name='home_page/error.html')),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/', include('accounts_app.urls')),
+    path('', include('home_page_app.urls')),
+    re_path(r'', TemplateView.as_view(template_name='error.html')),
 ]

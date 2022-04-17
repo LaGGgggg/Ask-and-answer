@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class HomePageConfig(AppConfig):
+class AccountsAppConfig(AppConfig):
     default_auto_field = 'django.db.models.AutoField'
-    name = 'home_page_app'
+    name = 'accounts_app'
