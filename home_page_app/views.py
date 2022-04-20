@@ -45,7 +45,7 @@ def del_sign_in(request):
 
                 conn.close()
 
-                return render(request, 'home_page/sign_in.html', {'form': user_form,
+                return render(request, 'home_page_app/sign_in.html', {'form': user_form,
                                                                   'comment': 'Invalid login or password, try again'})
 
             else:
@@ -67,13 +67,13 @@ def del_sign_in(request):
                     'cash': user_cash,
                 }
 
-                return render(request, 'home_page/user_account.html', {'data': render_data})
+                return render(request, 'home_page_app/user_account.html', {'data': render_data})
 
         else:
 
             # invalid user data page
 
-            return render(request, 'home_page/sign_in.html', {'form': user_form})
+            return render(request, 'home_page_app/sign_in.html', {'form': user_form})
 
     else:
 
@@ -81,7 +81,7 @@ def del_sign_in(request):
 
         user_form = SignInForm()
 
-        return render(request, 'home_page/sign_in.html', {'form': user_form})
+        return render(request, 'home_page_app/sign_in.html', {'form': user_form})
 
 
 def del_sign_up(request):
@@ -131,13 +131,13 @@ def del_sign_up(request):
                 'cash': new_user_cash[0],
             }
 
-            return render(request, 'home_page/user_account.html', {'data': render_data})
+            return render(request, 'home_page_app/user_account.html', {'data': render_data})
 
         else:
 
             # invalid user data page
 
-            return render(request, 'home_page/sign_up.html', {'form': user_form, 'comment': "Passwords didn't match."})
+            return render(request, 'home_page_app/sign_up.html', {'form': user_form, 'comment': "Passwords didn't match."})
 
     else:
 
@@ -145,10 +145,10 @@ def del_sign_up(request):
 
         user_form = SignUpForm()
 
-        return render(request, 'home_page/sign_up.html', {'form': user_form})
+        return render(request, 'home_page_app/sign_up.html', {'form': user_form})
 
 
-def sign_in(request):
+def del_2_sign_in(request):
 
     if request.method == 'POST':
 
@@ -166,18 +166,18 @@ def sign_in(request):
                 )
 
             except User.DoesNotExist:
-                return render(request, 'home_page/sign_in.html', {'form': user_form,
+                return render(request, 'home_page_app/sign_in.html', {'form': user_form,
                                                                   'comment': 'Invalid login or password.'})
 
             # user exists
 
-            return render(request, 'home_page/user_account.html', {'data': user})
+            return render(request, 'home_page_app/user_account.html', {'data': user})
 
         else:
 
             # invalid user data page
 
-            return render(request, 'home_page/sign_in.html', {'form': user_form, 'comment': 'Invalid data, try again.'})
+            return render(request, 'home_page_app/sign_in.html', {'form': user_form, 'comment': 'Invalid data, try again.'})
 
     else:
 
@@ -185,10 +185,10 @@ def sign_in(request):
 
         user_form = SignInForm()
 
-        return render(request, 'home_page/sign_in.html', {'form': user_form})
+        return render(request, 'home_page_app/sign_in.html', {'form': user_form})
 
 
-def sign_up(request):
+def del_2_sign_up(request):
 
     if request.method == 'POST':
 
@@ -210,16 +210,16 @@ def sign_up(request):
 
                 user = User.objects.create(login=user_data[0], password=user_data[1])
 
-                return render(request, 'home_page/user_account.html', {'data': user})
+                return render(request, 'home_page_app/user_account.html', {'data': user})
 
-            return render(request, 'home_page/sign_up.html', {'form': user_form,
+            return render(request, 'home_page_app/sign_up.html', {'form': user_form,
                                                               'comment': 'This login is already use, enter another please.'})
 
         else:
 
             # invalid user data page
 
-            return render(request, 'home_page/sign_up.html', {'form': user_form, 'comment': 'Invalid data, try again.'})
+            return render(request, 'home_page_app/sign_up.html', {'form': user_form, 'comment': 'Invalid data, try again.'})
 
     else:
 
@@ -227,4 +227,13 @@ def sign_up(request):
 
         user_form = SignUpForm()
 
-        return render(request, 'home_page/sign_up.html', {'form': user_form})
+        return render(request, 'home_page_app/sign_up.html', {'form': user_form})
+
+
+
+    # TODO прочти: 1. создам доп. приложение для профиля пользователя и т.д.
+    # TODO 2. в приложение в профили деньги отображаем через views(запрос к бд,
+    # TODO если нет денег в бд(тоесть ошибка при запросе через форму), то создаём
+    # TODO с нулём, а иначе отображаем баланс.).
+    # TODO прим. И возможно надо будет форму расширяющую пользователя до денег,
+    # TODO перенести в новое приложение, скорее всего.
