@@ -17,6 +17,9 @@
 {% block header %}
     Sign in:
 {% endblock header %}
+{% block right-bar %}
+    <button onclick="location.href='http://127.0.0.1:8000/'">To main page>></button>
+{% endblock right-bar %}
 {% block content %}
     <form method='POST'>
         {% csrf_token %}

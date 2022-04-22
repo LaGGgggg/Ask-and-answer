@@ -4,6 +4,10 @@
 {% block header %}
     {{ user.username }} account:
 {% endblock header %}
+{% block right-bar %}
+    <button onclick="location.href='http://127.0.0.1:8000/'">To main page>></button><br>
+    <button onclick="location.href='http://127.0.0.1:8000/accounts/logout/'">Log out>></button>
+{% endblock right-bar %}
 {% block content %}
     <h2>Your cash: {{ cash }}</h2>
     <h2>Your activity:</h2>

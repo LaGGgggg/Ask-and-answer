@@ -8,6 +8,7 @@
     {% block head_extra %}{% endblock head_extra %}
 </head>
 <body>
+    <dir class="sidebar">{% block right-bar %}{% endblock right-bar %}</dir>
     <h1>{% block header %}Here empty:({% endblock header %}</h1>
     <dir>{% block content %}Here empty:({% endblock content %}</dir>
     <footer>
@@ -15,7 +16,7 @@
             Authenticated: {{ user.username }}<br>
         {% endif %}
         {% now 'j F Y l h:iA' %}<br>
-        Poni22poni23@yandex.ru
+        <address>Poni22poni23@yandex.ru</address>
     </footer>
 </body>
 </html>
