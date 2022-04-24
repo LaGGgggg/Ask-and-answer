@@ -12,8 +12,8 @@
     <h2>Your cash: {{ cash }}</h2>
     <h2>Your activity:</h2>
     <ul>
-        {% for key, value in activity.items %}
-            <li>{{ key }}{{ value }}</li>
+        {% for value in activity %}
+            <li>{{ value }}</li>
         {% endfor %}
     </ul>
 {% endblock content %}

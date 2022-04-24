@@ -2,10 +2,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 
-from simple_history.utils import update_change_reason
-
 from django.shortcuts import render
-from django.db.models import F
 from accounts_app import models
 
 
@@ -30,26 +27,21 @@ def view_profile(request):
 
             user = models.Profile.objects.get(user_id=request.user.id)
 
-            # if user exist, return his money
+            # if user exist, return his money and activity
+
+            cash_activity = \
+                list(models.Profile.history.filter(history_user_id=user.user_id).order_by('-history_date'))[:31]
+
+            activity_list = []
+            n = 0  # n for know previous amount of cash([12, 10,...2, 0])
+
+            for i in cash_activity[:-1]:
+
+                n += 1
+
+                activity_list.append('Balance change: ' + str(cash_activity[n].cash) + ' --> ' + str(i.cash))
 
             user_cash = user.cash
-
-            #cash_activity = [models.Profile.history.in_bulk([user.user_id])]
-
-            user.cash += 2
-
-            user._change_reason = 'plus_money'  # TODO а как через явный?
-
-            user.save(update_fields=['cash'])
-
-            # TODO как это выбрать? cash_activity = [models.Profile.history.in_bulk(history_user_id=user.user_id)]
-
-            #user.update(cash=F('cash') + 2)
-
-            #update_change_reason(user, 'plus_money')
-
-            #activity_dict = {'Register date: ': request.user.date_joined}
-            activity_dict = {'Register date: ': request.user.date_joined, 'c': cash_activity}
 
         except models.Profile.DoesNotExist:
 
@@ -59,9 +51,9 @@ def view_profile(request):
 
             user_cash = 0
 
-            activity_dict = {'Register date: ': request.user.date_joined}
+            activity_list = ['Here empty:(']
 
         return render(request, 'accounts_app/user_profile.html', {
             'cash': user_cash,
-            'activity': activity_dict,
+            'activity': activity_list,
         })
