@@ -2,7 +2,10 @@ from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 
+from simple_history.utils import update_change_reason
+
 from django.shortcuts import render
+from django.db.models import F
 from accounts_app import models
 
 
@@ -23,15 +26,36 @@ def view_profile(request):
 
         try:
 
+            # check user exist
+
             user = models.Profile.objects.get(user_id=request.user.id)
+
+            # if user exist, return his money
 
             user_cash = user.cash
 
-            activity_dict = {'Register date: ': request.user.date_joined}
+            #cash_activity = [models.Profile.history.in_bulk([user.user_id])]
+
+            user.cash += 2
+
+            user._change_reason = 'plus_money'  # TODO а как через явный?
+
+            user.save(update_fields=['cash'])
+
+            # TODO как это выбрать? cash_activity = [models.Profile.history.in_bulk(history_user_id=user.user_id)]
+
+            #user.update(cash=F('cash') + 2)
+
+            #update_change_reason(user, 'plus_money')
+
+            #activity_dict = {'Register date: ': request.user.date_joined}
+            activity_dict = {'Register date: ': request.user.date_joined, 'c': cash_activity}
 
         except models.Profile.DoesNotExist:
 
-            models.Profile.objects.create(user_id=request.user.id, cash=0)
+            # if user does not exist in table, create his with default amount of money
+
+            models.Profile.objects.create(user_id=request.user.id)
 
             user_cash = 0
 
