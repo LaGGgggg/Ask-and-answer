@@ -14,14 +14,14 @@
         }
     </style>
 {% endblock head_extra %}
-{% block header %}
-    Sign in:
-{% endblock header %}
 {% block right-bar %}
     <button onclick="location.href='http://127.0.0.1:8000/'">To main page>></button>
 {% endblock right-bar %}
+{% block header %}
+    Sign in:
+{% endblock header %}
 {% block content %}
-    <form method='POST'>
+    <form method="POST">
         {% csrf_token %}
         <div>
             {% for field in form %}

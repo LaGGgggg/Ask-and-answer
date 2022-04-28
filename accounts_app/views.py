@@ -15,56 +15,92 @@ class SignUpView(CreateView):
 
 def view_profile(request):
 
-    if request.user.is_anonymous:
+    match request.user.is_anonymous:
 
-        return render(request, 'error.html')
+        case False:
 
-    else:
+            try:
 
-        try:
+                # check user exist
 
-            # check user exist
+                user = models.Profile.objects.get(user_id=request.user.id)
 
-            user = models.Profile.objects.get(user_id=request.user.id)
+                # if user exist, return his money and activity
 
-            # if user exist, return his money and activity
+                cash_activity = \
+                    list(models.Profile.history.filter(history_user_id=user.user_id).order_by('-history_date'))[:31]
 
-            cash_activity = \
-                list(models.Profile.history.filter(history_user_id=user.user_id).order_by('-history_date'))[:31]
+                activity_list = []
+                n = 0  # n for know previous amount of cash([12, 10,...2, 0])
 
-            activity_list = []
-            n = 0  # n for know previous amount of cash([12, 10,...2, 0])
+                for i in cash_activity[:-1]:
 
-            for i in cash_activity[:-1]:
+                    n += 1
 
-                n += 1
+                    activity_list.append('Balance change: ' + str(cash_activity[n].cash) + ' --> ' + str(i.cash))
 
-                activity_list.append('Balance change: ' + str(cash_activity[n].cash) + ' --> ' + str(i.cash))
+                user_cash = user.cash
 
-            user_cash = user.cash
+            except models.Profile.DoesNotExist:
 
-        except models.Profile.DoesNotExist:
+                # if user does not exist in table, create his with default amount of money
 
-            # if user does not exist in table, create his with default amount of money
+                models.Profile.objects.create(user_id=request.user.id)
 
-            models.Profile.objects.create(user_id=request.user.id)
+                user_cash = 0
 
-            user_cash = 0
+                activity_list = ['Here empty:(']
 
-            activity_list = ['Here empty:(']
+            return render(request, 'accounts_app/user_profile.html', {
+                'cash': user_cash,
+                'activity': activity_list,
+            })
 
-        return render(request, 'accounts_app/user_profile.html', {
-            'cash': user_cash,
-            'activity': activity_list,
-        })
+        case _:
+
+            return render(request, 'error.html')
 
 
-def add_question(request):
 
-    if request.method == 'POST':
+    #if request.user.is_anonymous:
 
-        return render(request, 'accounts_app/add_question_successfully.html')
+    #    return render(request, 'error.html')
 
-    else:
+    #else:
 
-        return render(request, 'accounts_app/add_question.html')
+    #    try:
+
+    #        # check user exist
+
+    #        user = models.Profile.objects.get(user_id=request.user.id)
+
+    #        # if user exist, return his money and activity
+
+    #        cash_activity = \
+    #            list(models.Profile.history.filter(history_user_id=user.user_id).order_by('-history_date'))[:31]
+
+    #        activity_list = []
+    #        n = 0  # n for know previous amount of cash([12, 10,...2, 0])
+
+    #        for i in cash_activity[:-1]:
+
+    #            n += 1
+
+    #            activity_list.append('Balance change: ' + str(cash_activity[n].cash) + ' --> ' + str(i.cash))
+
+    #        user_cash = user.cash
+
+    #    except models.Profile.DoesNotExist:
+
+    #        # if user does not exist in table, create his with default amount of money
+
+    #        models.Profile.objects.create(user_id=request.user.id)
+
+    #        user_cash = 0
+
+    #        activity_list = ['Here empty:(']
+
+    #    return render(request, 'accounts_app/user_profile.html', {
+    #        'cash': user_cash,
+    #        'activity': activity_list,
+    #    })

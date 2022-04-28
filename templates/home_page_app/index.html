@@ -13,9 +13,11 @@
 {% block content %}
     <p>Listen:<br>"Houii."<br><br>What?</p>
     <img src="{% static 'images/factorio.png'%}">
-    <p>
-        <button onclick="location.href='http://127.0.0.1:8000/accounts/login/'">sign in</button>
-        <button onclick="location.href='http://127.0.0.1:8000/accounts/signup/'">sign up</button><br>
-    </p>
+    {% if user.is_anonymous  %}
+        <p>
+            <button onclick="location.href='http://127.0.0.1:8000/accounts/login/'">sign in</button>
+            <button onclick="location.href='http://127.0.0.1:8000/accounts/signup/'">sign up</button><br>
+        </p>
+    {% endif %}
 {% endblock content %}
 </html>
