@@ -7,6 +7,7 @@
 {% endblock header %}
 {% block right-bar %}
     {% if user.is_authenticated %}
+            <button onclick="location.href='http://127.0.0.1:8000/create_question/'">Create question>></button><br>
             <button onclick="location.href='http://127.0.0.1:8000/accounts/profile/'">To your profile>></button>
     {% endif %}
 {% endblock right-bar %}

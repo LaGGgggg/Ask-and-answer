@@ -32,3 +32,9 @@ class SignUpForm(forms.Form):
         min_length=8,
         max_length=20,
     )
+
+
+class MakeQuestionForm(forms.Form):
+
+    title = forms.CharField(max_length=30)
+    content = forms.Field(widget=forms.Textarea())

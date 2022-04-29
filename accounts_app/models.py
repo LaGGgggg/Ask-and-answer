@@ -9,11 +9,3 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     cash = models.PositiveBigIntegerField(default=0)
     history = HistoricalRecords(excluded_fields=['id', 'user', 'history_user'])
-
-
-#class Moderator(models.Model):
-#    pass
-
-
-#class Admin(models.Model):
-#    pass
