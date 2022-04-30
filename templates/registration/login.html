@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="{% static 'css_styles/post_default.css' %}">
 {% endblock head_extra %}
 {% block right-bar %}
-    <button onclick="location.href='http://127.0.0.1:8000/'">To main page>></button>
+    <button onclick="location.href='http://127.0.0.1:8000'">To main page>></button>
 {% endblock right-bar %}
 {% block header %}
     Sign in:
@@ -17,7 +17,7 @@
         <div>
             {% for field in form %}
                 {{ field.label_tag }}<br>
-                {{ field }}<br>
+                {{ field }}
                 <div class="error">{{ field.errors }}</div>
             {% endfor %}
         </div>

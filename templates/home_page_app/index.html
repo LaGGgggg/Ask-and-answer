@@ -2,15 +2,15 @@
 <html lang="en">
 {% extends 'base.html' %}
 {% load static %}
-{% block header %}
-    Hello everyone!
-{% endblock header %}
 {% block right-bar %}
     {% if user.is_authenticated %}
             <button onclick="location.href='http://127.0.0.1:8000/create-question/'">Create question>></button><br>
             <button onclick="location.href='http://127.0.0.1:8000/accounts/profile/'">To your profile>></button>
     {% endif %}
 {% endblock right-bar %}
+{% block header %}
+    Hello everyone!
+{% endblock header %}
 {% block content %}
     <p>Listen:<br>"Houii."<br><br>What?</p>
     <img src="{% static 'images/factorio.png'%}">

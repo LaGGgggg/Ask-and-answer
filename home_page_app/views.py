@@ -4,6 +4,8 @@ from django.shortcuts import render
 from .forms import *
 from .models import *
 
+from django.db.utils import IntegrityError
+
 # postgresql:
 
 from psycopg2 import connect
@@ -11,7 +13,7 @@ from psycopg2 import connect
 
 def view_main(request):
 
-    latest_questions = Questions.objects.order_by('pub_date')[:5]
+    latest_questions = Questions.objects.order_by('-pub_date')[:5]
 
     return render(request, 'home_page_app/index.html', {'latest_questions': latest_questions})
 
@@ -28,11 +30,20 @@ def add_question(request):
 
                 case True:
 
-                    Questions.objects.create(
-                        title=make_question_form.cleaned_data['title'],
-                        content=make_question_form.cleaned_data['content'],
-                        author_name=request.user.username,
-                    )
+                    try:
+
+                        Questions.objects.create(
+                            title=make_question_form.cleaned_data['title'],
+                            content=make_question_form.cleaned_data['content'],
+                            author_name=request.user.username,
+                        )
+
+                    except IntegrityError:
+
+                        return render(request, 'home_page_app/create_question.html', {
+                            'form': make_question_form,
+                            'comment': 'Not unique text!',
+                        })
 
                     return render(request, 'home_page_app/create_question_successfully.html')
 
