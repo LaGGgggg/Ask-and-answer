@@ -1,0 +1,17 @@
+.error{color:red;}
+.input{
+    color:blue;
+    border:1px solid #ccc;
+    border-radius:5px;
+    height:25px;
+    width:200px;
+    margin: 7px 10px 10px 0;
+}
+.input_big{
+    color:blue;
+    border:1px solid #ccc;
+    border-radius:5px;
+    height:500px;
+    width:800px;
+    margin: 7px 10px 10px 0;
+}

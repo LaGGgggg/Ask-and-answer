@@ -1,18 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 {% extends 'base.html' %}
+{% load static %}
 {% block head_extra %}
-    <style>
-        .error{color:red;}
-        .default-input{
-                  color:bue;
-                  border:1px solid #ccc;
-                  border-radius:5px;
-                  height:25px;
-                  width:200px;
-                  margin: 7px 10px 10px 0;
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'css_styles/post_default.css' %}">
 {% endblock head_extra %}
 {% block right-bar %}
     <button onclick="location.href='http://127.0.0.1:8000/'">To main page>></button>

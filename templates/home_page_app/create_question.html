@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 {% extends 'base.html' %}
+{% load static %}
+{% block head_extra %}
+    <link rel="stylesheet" href="{% static 'css_styles/post_default.css' %}">
+{% endblock head_extra %}
 {% block header %}
     Enter data please:
 {% endblock header %}
@@ -9,9 +13,9 @@
         {% csrf_token %}
         <div>
             {% for field in form %}
-                {{ field.label_tag }}
+                {{ field.label_tag }}<br>
                 {{ field }}
-                {{ field.errors }}
+                <div class="error">{{ field.errors }}</div>
             {% endfor %}
         </div>
         <input type="submit" value="Send">

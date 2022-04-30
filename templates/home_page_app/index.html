@@ -7,7 +7,7 @@
 {% endblock header %}
 {% block right-bar %}
     {% if user.is_authenticated %}
-            <button onclick="location.href='http://127.0.0.1:8000/create_question/'">Create question>></button><br>
+            <button onclick="location.href='http://127.0.0.1:8000/create-question/'">Create question>></button><br>
             <button onclick="location.href='http://127.0.0.1:8000/accounts/profile/'">To your profile>></button>
     {% endif %}
 {% endblock right-bar %}
@@ -20,5 +20,11 @@
             <button onclick="location.href='http://127.0.0.1:8000/accounts/signup/'">sign up</button><br>
         </p>
     {% endif %}
+    <h1>Latest questions:</h1>
+    <p>
+        {% for question in latest_questions %}
+            <a href="">{{ question.title }}</a><br>
+        {% endfor %}
+    </p>
 {% endblock content %}
 </html>

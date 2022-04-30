@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView
 
 from django.shortcuts import render
-from accounts_app import models
+from .models import *
 
 
 class SignUpView(CreateView):
@@ -23,12 +23,12 @@ def view_profile(request):
 
                 # check user exist
 
-                user = models.Profile.objects.get(user_id=request.user.id)
+                user = Profile.objects.get(user_id=request.user.id)
 
                 # if user exist, return his money and activity
 
                 cash_activity = \
-                    list(models.Profile.history.filter(history_user_id=user.user_id).order_by('-history_date'))[:31]
+                    list(Profile.history.filter(history_user_id=user.user_id).order_by('-history_date'))[:31]
 
                 activity_list = []
                 n = 0  # n for know previous amount of cash([12, 10,...2, 0])
@@ -41,11 +41,11 @@ def view_profile(request):
 
                 user_cash = user.cash
 
-            except models.Profile.DoesNotExist:
+            except Profile.DoesNotExist:
 
                 # if user does not exist in table, create his with default amount of money
 
-                models.Profile.objects.create(user_id=request.user.id)
+                Profile.objects.create(user_id=request.user.id)
 
                 user_cash = 0
 

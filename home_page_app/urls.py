@@ -1,9 +1,10 @@
-from django.urls import path
+from django.urls import path, re_path
 from django.views.generic import TemplateView
 
 from home_page_app import views  # ignore this import error, all works correct.
 
 urlpatterns = [
-    path('create_question/', views.add_question),
-    path('', TemplateView.as_view(template_name='home_page_app/index.html')),
+    re_path('^question-view/(?P<question_id>\\d+)/', views.view_question),
+    path('create-question/', views.add_question),
+    path('', views.view_main),
 ]
