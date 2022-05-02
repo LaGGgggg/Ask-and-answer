@@ -1,5 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 {% extends 'base.html' %}
-
+{% block right_bar %}
+    <button onclick="location.href='http://127.0.0.1:8000'">To main page>></button>
+{% endblock right_bar %}
+{% block header %}
+    {{ question_data.title }}
+{% endblock header %}
+{% block content %}
+    <p>{{ question_data.content }}</p>
+    {{ question_data.pub_date }}<br>
+    Likes: {{ question_data.likes }}<br>
+    Author: {{ question_data.author }}
+{% endblock content %}
 </html>

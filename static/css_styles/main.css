@@ -1,9 +1,7 @@
-body{
-    font-family:Verdana;
-}
 h1{color:navy;}
 footer{font-size:small;}
 img{width:350px;}
+body{font-family:Verdana;}
 button{
     margin-top:5px;
     width:160px;
@@ -13,4 +11,12 @@ button{
     margin-top: 0px;
     position: relative;
     float: right;
+}
+.auto_transfer_text{
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+    hyphenate-limit-chars: 10 4 4;
 }

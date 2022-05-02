@@ -8,9 +8,9 @@
     <title>{% block title %}Ask and answer.{% endblock title %}</title>
 </head>
 <body>
-    <dir class="sidebar">{% block right-bar %}{% endblock right-bar %}</dir>
+    <dir class="sidebar">{% block right_bar %}{% endblock right_bar %}</dir>
     <h1>{% block header %}Here empty:({% endblock header %}</h1>
-    <dir>{% block content %}Here empty:({% endblock content %}</dir>
+    <dir class="auto_transfer_text">{% block content %}Here empty:({% endblock content %}</dir>
     <footer>
         {% if user.is_authenticated %}
             Authenticated: {{ user.username }}<br>

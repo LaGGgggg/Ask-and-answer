@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'accounts_app.apps.AccountsAppConfig',
     'debug_toolbar',
     'simple_history',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [

@@ -2,12 +2,12 @@
 <html lang="en">
 {% extends 'base.html' %}
 {% load static %}
-{% block right-bar %}
+{% block right_bar %}
     {% if user.is_authenticated %}
             <button onclick="location.href='http://127.0.0.1:8000/create-question/'">Create question>></button><br>
             <button onclick="location.href='http://127.0.0.1:8000/accounts/profile/'">To your profile>></button>
     {% endif %}
-{% endblock right-bar %}
+{% endblock right_bar %}
 {% block header %}
     Hello everyone!
 {% endblock header %}
@@ -23,7 +23,7 @@
     <h1>Latest questions:</h1>
     <p>
         {% for question in latest_questions %}
-            <a href="">{{ question.title }}</a><br>
+            <a href="http://127.0.0.1:8000/question-view/{{ question.id }}/">{{ question.title }}</a><br>
         {% endfor %}
     </p>
 {% endblock content %}

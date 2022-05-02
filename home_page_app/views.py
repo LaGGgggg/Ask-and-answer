@@ -73,11 +73,11 @@ def view_question(request, question_id):
     question = Questions.objects.get(id=question_id)
 
     question_data = {
-        'question_title': question.title,
-        'question_content': question.content,
-        'question_likes': question.likes_value,
-        'question_author': question.author_name,
-        'question_pub_date': question.pub_date,
+        'title': question.title,
+        'content': question.content,
+        'likes': question.likes_value,
+        'author': question.author_name,
+        'pub_date': question.pub_date,
     }
 
     return render(request, 'home_page_app/view_question.html', {'question_data': question_data})

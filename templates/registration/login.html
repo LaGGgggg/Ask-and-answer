@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 {% extends 'base.html' %}
+{% load widget_tweaks %}
 {% load static %}
 {% block head_extra %}
     <link rel="stylesheet" href="{% static 'css_styles/post_default.css' %}">
 {% endblock head_extra %}
-{% block right-bar %}
+{% block right_bar %}
     <button onclick="location.href='http://127.0.0.1:8000'">To main page>></button>
-{% endblock right-bar %}
+{% endblock right_bar %}
 {% block header %}
     Sign in:
 {% endblock header %}
@@ -17,7 +18,7 @@
         <div>
             {% for field in form %}
                 {{ field.label_tag }}<br>
-                {{ field }}
+                {% render_field field class+='input' %}
                 <div class="error">{{ field.errors }}</div>
             {% endfor %}
         </div>
