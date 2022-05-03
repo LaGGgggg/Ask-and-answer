@@ -12,3 +12,10 @@ class MakeQuestionForm(forms.Form):
         widget=forms.widgets.Textarea(attrs={'class': 'input_big'}),
         min_length=160,
     )
+
+
+class MakeCommentForm(forms.Form):
+
+    content = forms.CharField(
+        widget=forms.widgets.Textarea(attrs={'class': 'input'}),
+    )

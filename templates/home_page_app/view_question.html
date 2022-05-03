@@ -4,6 +4,7 @@
 {% load static %}
 {% block head_extra %}
     <link rel="stylesheet" href="{% static 'css_styles/right_bottom_text.css' %}">
+    <link rel="stylesheet" href="{% static 'css_styles/post_default.css' %}">
 {% endblock head_extra %}
 {% block right_bar %}
     <button onclick="location.href='http://127.0.0.1:8000'">To main page>></button>
@@ -18,5 +19,18 @@
         Likes: {{ question_data.likes }}<br>
         Author: {{ question_data.author }}
     </div>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="error">{{ comment }}</div>
+        <div>
+            {{ form.label_tag }}<br>
+            {{ form }}
+            <div class="error">{{ form.errors }}</div>
+            <input type="submit" value="Send">
+        </div>
+    </form>
+    {% for comment in question_data.comments %}
+    <p>{{ comment.content }}</p>
+    {% endfor %}
 {% endblock content %}
 </html>

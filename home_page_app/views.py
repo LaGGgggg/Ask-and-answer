@@ -49,19 +49,11 @@ def add_question(request):
 
                 case False:
 
-                    make_question_form = MakeQuestionForm()
-
-                    return render(request, 'home_page_app/create_question.html', {'form': make_question_form})
-
-                case _:
-
-                    return render(request, 'error.html')
+                    return render(request, 'home_page_app/create_question.html', {'form': MakeQuestionForm()})
 
         case 'GET':
 
-            make_question_form = MakeQuestionForm()
-
-            return render(request, 'home_page_app/create_question.html', {'form': make_question_form})
+            return render(request, 'home_page_app/create_question.html', {'form': MakeQuestionForm()})
 
         case _:
 
@@ -78,6 +70,54 @@ def view_question(request, question_id):
         'likes': question.likes_value,
         'author': question.author_name,
         'pub_date': question.pub_date,
+        'comments': Comments.objects.order_by('likes_value'),
     }
 
-    return render(request, 'home_page_app/view_question.html', {'question_data': question_data})
+    match request.method:
+
+        case 'POST':
+
+            make_comment_form = MakeCommentForm(request.POST)
+
+            if make_comment_form.is_valid():
+
+                if Comments.objects.filter(content=make_comment_form.cleaned_data['content']).exists():
+
+                    return render(request, 'home_page_app/view_question.html', {
+                        'question_data': question_data,
+                        'form': MakeCommentForm(),
+                        'comment': 'Not unique text!',
+                    })
+
+                else:
+
+                    Comments.objects.create(
+                        question_id=question,
+                        content=make_comment_form.cleaned_data['content'],
+                        author_name=request.user.username,
+                    )
+
+                    question_data['comments'] = Comments.objects.order_by('likes_value')
+
+                    return render(request, 'home_page_app/view_question.html', {
+                        'question_data': question_data,
+                        'form': MakeCommentForm(),
+                    })
+
+            else:
+
+                return render(request, 'home_page_app/view_question.html', {
+                    'question_data': question_data,
+                    'form': MakeCommentForm(),
+                })
+
+        case 'GET':
+
+            return render(request, 'home_page_app/view_question.html', {
+                'question_data': question_data,
+                'form': MakeCommentForm(),
+            })
+
+        case _:
+
+            return render(request, 'error.html')

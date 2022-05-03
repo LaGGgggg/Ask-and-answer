@@ -12,7 +12,7 @@ class Questions(models.Model):
 
 class Comments(models.Model):
 
-    question_id = models.OneToOneField(Questions, on_delete=models.CASCADE)
+    question_id = models.ForeignKey(Questions, on_delete=models.CASCADE)
     content = models.TextField()
     likes_value = models.IntegerField(default=0)
     pub_date = models.DateField(auto_now_add=True)
