@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 {% extends 'base.html' %}
+{% load static %}
+{% block head_extra %}
+    <link rel="stylesheet" href="{% static 'css_styles/right_bottom_text.css' %}">
+{% endblock head_extra %}
 {% block right_bar %}
     <button onclick="location.href='http://127.0.0.1:8000'">To main page>></button>
 {% endblock right_bar %}
@@ -9,8 +13,10 @@
 {% endblock header %}
 {% block content %}
     <p>{{ question_data.content }}</p>
-    {{ question_data.pub_date }}<br>
-    Likes: {{ question_data.likes }}<br>
-    Author: {{ question_data.author }}
+    <div class="right_bottom">
+        {{ question_data.pub_date }}<br>
+        Likes: {{ question_data.likes }}<br>
+        Author: {{ question_data.author }}
+    </div>
 {% endblock content %}
 </html>

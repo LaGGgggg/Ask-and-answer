@@ -21,10 +21,10 @@
         </p>
     {% endif %}
     <h1>Latest questions:</h1>
-    <p>
+    <ul>
         {% for question in latest_questions %}
-            <a href="http://127.0.0.1:8000/question-view/{{ question.id }}/">{{ question.title }}</a><br>
+            <li><a href="http://127.0.0.1:8000/question-view/{{ question.id }}/">{{ question.title }}</a></li>
         {% endfor %}
-    </p>
+    </ul>
 {% endblock content %}
 </html>

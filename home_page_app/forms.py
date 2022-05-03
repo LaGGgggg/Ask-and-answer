@@ -10,5 +10,5 @@ class MakeQuestionForm(forms.Form):
     )
     content = forms.CharField(
         widget=forms.widgets.Textarea(attrs={'class': 'input_big'}),
-        min_length=180,
+        min_length=160,
     )

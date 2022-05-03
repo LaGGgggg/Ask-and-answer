@@ -7,16 +7,21 @@ button{
     width:160px;
     height:40px;
 }
+ul{
+    color:navy;
+    padding-left:30px;
+}
 .sidebar{
-    margin-top: 0px;
-    position: relative;
-    float: right;
+    margin-top:0px;
+    position:relative;
+    float:right;
 }
 .auto_transfer_text{
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    -webkit-hyphens: auto;
-    -ms-hyphens: auto;
-    hyphens: auto;
-    hyphenate-limit-chars: 10 4 4;
+    overflow-wrap:break-word;
+    word-wrap:break-word;
+    -webkit-hyphens:auto;
+    -ms-hyphens:auto;
+    hyphens:auto;
+    hyphenate-limit-chars:10 4 4;
+    margin-right:20px;
 }
