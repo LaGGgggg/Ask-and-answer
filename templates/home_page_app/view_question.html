@@ -13,24 +13,32 @@
     {{ question_data.title }}
 {% endblock header %}
 {% block content %}
-    <p>{{ question_data.content }}</p>
+    <p>{{ question_data.content|linebreaks }}</p>
     <div class="right_bottom">
         {{ question_data.pub_date }}<br>
         Likes: {{ question_data.likes }}<br>
         Author: {{ question_data.author }}
     </div>
+    <h2>Write comment:</h2>
     <form method="POST">
         {% csrf_token %}
         <div class="error">{{ comment }}</div>
-        <div>
-            {{ form.label_tag }}<br>
-            {{ form }}
-            <div class="error">{{ form.errors }}</div>
-            <input type="submit" value="Send">
-        </div>
+        {{ form.content.label_tag }}<br>
+        {{ form.content }}
+        <div class="error">{{ form.errors }}</div>
+        <input type="submit" value="Send">
     </form>
-    {% for comment in question_data.comments %}
-    <p>{{ comment.content }}</p>
-    {% endfor %}
+    <h2>Recent comments:</h2>
+    {% if question_data.comments %}
+        {% for comment in question_data.comments %}
+            {{ comment.content|linebreaks }}<br>
+            <div style="font-size:75%;">
+                {{ comment.pub_date }} Likes: {{ comment.likes_value }} Author: {{ comment.author_name }}
+            </div>
+            <hr>
+        {% endfor %}
+    {% else %}
+        <b>Be the first!</b>
+    {% endif %}
 {% endblock content %}
 </html>

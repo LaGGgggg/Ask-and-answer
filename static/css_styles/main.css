@@ -1,15 +1,16 @@
-h1{color:navy;}
+h1, h2{color:navy;}
 footer{font-size:small;}
 img{width:350px;}
 body{font-family:Verdana;}
+hr{background-color:blue;}
+ul{
+    color:navy;
+    padding-left:30px;
+}
 button{
     margin-top:5px;
     width:160px;
     height:40px;
-}
-ul{
-    color:navy;
-    padding-left:30px;
 }
 .sidebar{
     margin-top:0px;

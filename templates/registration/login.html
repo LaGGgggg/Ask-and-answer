@@ -15,13 +15,11 @@
 {% block content %}
     <form method="POST">
         {% csrf_token %}
-        <div>
-            {% for field in form %}
-                {{ field.label_tag }}<br>
-                {% render_field field class+='input' %}
-                <div class="error">{{ field.errors }}</div>
-            {% endfor %}
-        </div>
+        {% for field in form %}
+            {{ field.label_tag }}<br>
+            {% render_field field class+='input' %}
+            <div class="error">{{ field.errors }}</div>
+        {% endfor %}
         <input type="submit" value="Send">
     </form>
 {% endblock content %}

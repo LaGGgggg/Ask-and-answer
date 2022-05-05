@@ -70,7 +70,7 @@ def view_question(request, question_id):
         'likes': question.likes_value,
         'author': question.author_name,
         'pub_date': question.pub_date,
-        'comments': Comments.objects.order_by('likes_value'),
+        'comments': Comments.objects.filter(question_id=question_id).order_by('likes_value').order_by('-pub_date'),
     }
 
     match request.method:
@@ -92,12 +92,12 @@ def view_question(request, question_id):
                 else:
 
                     Comments.objects.create(
-                        question_id=question,
+                        question_id=question_id,
                         content=make_comment_form.cleaned_data['content'],
                         author_name=request.user.username,
                     )
 
-                    question_data['comments'] = Comments.objects.order_by('likes_value')
+                    question_data['comments'] = Comments.objects.filter(question_id=question_id).order_by('likes_value').order_by('-pub_date')
 
                     return render(request, 'home_page_app/view_question.html', {
                         'question_data': question_data,
