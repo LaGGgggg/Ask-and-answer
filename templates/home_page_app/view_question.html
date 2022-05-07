@@ -19,15 +19,17 @@
         Likes: {{ question_data.likes }}<br>
         Author: {{ question_data.author }}
     </div>
-    <h2>Write comment:</h2>
-    <form method="POST">
-        {% csrf_token %}
-        <div class="error">{{ comment }}</div>
-        {{ form.content.label_tag }}<br>
-        {{ form.content }}
-        <div class="error">{{ form.errors }}</div>
-        <input type="submit" value="Send">
-    </form>
+    {% if user.is_authenticated %}
+        <h2>Write comment:</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="error">{{ comment }}</div>
+            {{ form.content.label_tag }}<br>
+            {{ form.content }}
+            <div class="error">{{ form.errors }}</div>
+            <input type="submit" value="Send">
+        </form>
+    {% endif %}
     <h2>Recent comments:</h2>
     {% if question_data.comments %}
         {% for comment in question_data.comments %}

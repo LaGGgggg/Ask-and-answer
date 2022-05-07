@@ -1,14 +1,9 @@
-# Django:
-
 from django.shortcuts import render
+from django.db.utils import IntegrityError
 from .forms import *
 from .models import *
 
-from django.db.utils import IntegrityError
-
-# postgresql:
-
-from psycopg2 import connect
+from accounts_app.models import Profile
 
 
 def view_main(request):
@@ -26,30 +21,36 @@ def add_question(request):
 
             make_question_form = MakeQuestionForm(request.POST)
 
-            match make_question_form.is_valid():
+            if make_question_form.is_valid():
 
-                case True:
+                try:
 
-                    try:
+                    Questions.objects.create(
+                        title=make_question_form.cleaned_data['title'],
+                        content=make_question_form.cleaned_data['content'],
+                        author_name=request.user.username,
+                    )
 
-                        Questions.objects.create(
-                            title=make_question_form.cleaned_data['title'],
-                            content=make_question_form.cleaned_data['content'],
-                            author_name=request.user.username,
-                        )
+                    # cash by create question:
 
-                    except IntegrityError:
+                    user = Profile.objects.get(user_id=request.user.id)
 
-                        return render(request, 'home_page_app/create_question.html', {
-                            'form': make_question_form,
-                            'comment': 'Not unique text!',
-                        })
+                    user.cash += 10
+
+                    user.save()
 
                     return render(request, 'home_page_app/create_question_successfully.html')
 
-                case False:
+                except IntegrityError:
 
-                    return render(request, 'home_page_app/create_question.html', {'form': MakeQuestionForm()})
+                    return render(request, 'home_page_app/create_question.html', {
+                        'form': make_question_form,
+                        'comment': 'Not unique text!',
+                    })
+
+            else:
+
+                return render(request, 'home_page_app/create_question.html', {'form': MakeQuestionForm()})
 
         case 'GET':
 
@@ -62,6 +63,8 @@ def add_question(request):
 
 def view_question(request, question_id):
 
+    get_comments = Comments.objects.filter(question_id=question_id).order_by('likes_value').order_by('-pub_date')
+
     question = Questions.objects.get(id=question_id)
 
     question_data = {
@@ -70,7 +73,7 @@ def view_question(request, question_id):
         'likes': question.likes_value,
         'author': question.author_name,
         'pub_date': question.pub_date,
-        'comments': Comments.objects.filter(question_id=question_id).order_by('likes_value').order_by('-pub_date'),
+        'comments': get_comments,
     }
 
     match request.method:
@@ -97,7 +100,15 @@ def view_question(request, question_id):
                         author_name=request.user.username,
                     )
 
-                    question_data['comments'] = Comments.objects.filter(question_id=question_id).order_by('likes_value').order_by('-pub_date')
+                    # cash by create comment:
+
+                    user = Profile.objects.get(user_id=request.user.id)
+
+                    user.cash += 5
+
+                    user.save()
+
+                    question_data['comments'] = get_comments
 
                     return render(request, 'home_page_app/view_question.html', {
                         'question_data': question_data,

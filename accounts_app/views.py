@@ -13,49 +13,54 @@ class SignUpView(CreateView):
     template_name = 'registration/sign_up.html'
 
 
+class LoginView(CreateView):
+
+    form_class = UserCreationForm
+    success_url = reverse_lazy('profile')
+    template_name = 'registration/login.html'
+
+
 def view_profile(request):
 
-    match request.user.is_anonymous:
+    if request.user.is_anonymous:
 
-        case False:
+        return render(request, 'error.html')
 
-            try:
+    else:
 
-                # check user exist
+        try:
 
-                user = Profile.objects.get(user_id=request.user.id)
+            # check user exist
 
-                # if user exist, return his money and activity
+            user = Profile.objects.get(user_id=request.user.id)
 
-                cash_activity = \
-                    list(Profile.history.filter(history_user_id=user.user_id).order_by('-history_date'))[:31]
+            # if user exist, return his money and activity
 
-                activity_list = []
-                n = 0  # n for know previous amount of cash([12, 10,...2, 0])
+            cash_activity = \
+                list(Profile.history.filter(history_user_id=user.user_id).order_by('-history_date'))[:31]
 
-                for i in cash_activity[:-1]:
+            activity_list = []
+            n = 0  # n for know previous amount of cash([12, 10,...2, 0])
 
-                    n += 1
+            for i in cash_activity[:-1]:
 
-                    activity_list.append('Balance change: ' + str(cash_activity[n].cash) + ' --> ' + str(i.cash))
+                n += 1
 
-                user_cash = user.cash
+                activity_list.append('Balance change: ' + str(cash_activity[n].cash) + ' --> ' + str(i.cash))
 
-            except Profile.DoesNotExist:
+            user_cash = user.cash
 
-                # if user does not exist in table, create his with default amount of money
+        except Profile.DoesNotExist:
 
-                Profile.objects.create(user_id=request.user.id)
+            # if user does not exist in table, create his with default amount of money
 
-                user_cash = 0
+            Profile.objects.create(user_id=request.user.id)
 
-                activity_list = ['Here empty:(']
+            user_cash = 0
 
-            return render(request, 'accounts_app/user_profile.html', {
-                'cash': user_cash,
-                'activity': activity_list,
-            })
+            activity_list = ['Here empty:(']
 
-        case _:
-
-            return render(request, 'error.html')
+        return render(request, 'accounts_app/user_profile.html', {
+            'cash': user_cash,
+            'activity': activity_list,
+        })
