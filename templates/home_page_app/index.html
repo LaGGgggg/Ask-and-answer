@@ -2,6 +2,9 @@
 <html lang="en">
 {% extends 'base.html' %}
 {% load static %}
+{% block head_extra %}
+    <link rel="stylesheet" href="{% static 'css_styles/post_default.css' %}">
+{% endblock head_extra %}
 {% block right_bar %}
     {% if user.is_authenticated %}
             <button onclick="location.href='http://127.0.0.1:8000/create-question/'">Create question>></button><br>
@@ -23,7 +26,21 @@
     <h1>Latest questions:</h1>
     <ul>
         {% for question in latest_questions %}
-            <li><a href="http://127.0.0.1:8000/question-view/{{ question.id }}/">{{ question.title }}</a></li>
+            <li><a href="http://127.0.0.1:8000/question-view/{{ question.id }}/">{{ question.title }}</a>
+        {% endfor %}
+    </ul>
+    <h1>Search your question!</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="error">{{ comment }}</div>
+        {{ form.content.label_tag }}
+        {{ form.content }}
+        <div class="error">{{ form.errors }}</div>
+        <input type="submit" value="Search">
+    </form>
+    <ul>
+        {% for question in found_questions %}
+            <li><a href="http://127.0.0.1:8000/question-view/{{ question.id }}/">{{ question.title }}</a>
         {% endfor %}
     </ul>
 {% endblock content %}

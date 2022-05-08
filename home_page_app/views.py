@@ -10,7 +10,43 @@ def view_main(request):
 
     latest_questions = Questions.objects.order_by('-pub_date')[:5]
 
-    return render(request, 'home_page_app/index.html', {'latest_questions': latest_questions})
+    match request.method:
+
+        case 'GET':
+
+            return render(request, 'home_page_app/index.html', {
+                'latest_questions': latest_questions,
+                'form': SearchQuestionForm(),
+            })
+
+        case 'POST':
+
+            search_question_form = SearchQuestionForm(request.POST)
+
+            if search_question_form.is_valid():
+
+                found_questions = \
+                    Questions.objects.filter(title__contains=search_question_form.cleaned_data['content'])
+
+                if not found_questions:
+                    found_questions = 'Questions not found:('
+
+                return render(request, 'home_page_app/index.html', {
+                    'latest_questions': latest_questions,
+                    'form': search_question_form,
+                    'found_questions': found_questions,
+                })
+
+            else:
+
+                return render(request, 'home_page_app/index.html', {
+                    'latest_questions': latest_questions,
+                    'form': SearchQuestionForm(),
+                })
+
+        case _:
+
+            return render(request, 'error.html')
 
 
 def add_question(request):
