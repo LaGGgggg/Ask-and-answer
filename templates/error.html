@@ -5,6 +5,6 @@
     Something go wrong...
 {% endblock header %}
 {% block content %}
-    <button onclick="location.href='http://127.0.0.1:8000/'">Return on main</button>
+    <button onclick="location.href='{% url 'main' %}'">To main page>></button>
 {% endblock content %}
 </html>

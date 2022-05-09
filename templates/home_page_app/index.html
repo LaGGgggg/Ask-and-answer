@@ -7,8 +7,8 @@
 {% endblock head_extra %}
 {% block right_bar %}
     {% if user.is_authenticated %}
-            <button onclick="location.href='http://127.0.0.1:8000/create-question/'">Create question>></button><br>
-            <button onclick="location.href='http://127.0.0.1:8000/accounts/profile/'">To your profile>></button>
+            <button onclick="location.href='{% url 'create-question' %}'">Create question>></button><br>
+            <button onclick="location.href='{% url 'profile' %}'">To your profile>></button>
     {% endif %}
 {% endblock right_bar %}
 {% block header %}
@@ -19,14 +19,14 @@
     <img src="{% static 'images/factorio.png'%}">
     {% if user.is_anonymous  %}
         <p>
-            <button onclick="location.href='http://127.0.0.1:8000/accounts/login/'">sign in</button>
-            <button onclick="location.href='http://127.0.0.1:8000/accounts/signup/'">sign up</button><br>
+            <button onclick="location.href='{% url 'login' %}'">sign in</button>
+            <button onclick="location.href='{% url 'signup' %}'">sign up</button><br>
         </p>
     {% endif %}
     <h1>Latest questions:</h1>
     <ul>
         {% for question in latest_questions %}
-            <li><a href="http://127.0.0.1:8000/question-view/{{ question.id }}/">{{ question.title }}</a>
+            <li><a href="{% url 'question-view' question.id %}">{{ question.title }}</a>
         {% endfor %}
     </ul>
     <h1>Search your question!</h1>
@@ -40,7 +40,7 @@
     </form>
     <ul>
         {% for question in found_questions %}
-            <li><a href="http://127.0.0.1:8000/question-view/{{ question.id }}/">{{ question.title }}</a>
+            <li><a href="{% url 'question-view' question.id %}/">{{ question.title }}</a>
         {% endfor %}
     </ul>
 {% endblock content %}

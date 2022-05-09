@@ -5,6 +5,6 @@
     Question created successfully!
 {% endblock header %}
 {% block content %}
-    <button onclick="location.href='http://127.0.0.1:8000'">To main page>></button>
+    <button onclick="location.href='{% url 'main' %}'">To main page>></button>
 {% endblock content %}
 </html>
