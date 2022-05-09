@@ -38,10 +38,14 @@
         <div class="error">{{ form.errors }}</div>
         <input type="submit" value="Search">
     </form>
-    <ul>
-        {% for question in found_questions %}
-            <li><a href="{% url 'question-view' question.id %}/">{{ question.title }}</a>
-        {% endfor %}
-    </ul>
+    {% if found_questions %}
+        <ul>
+            {% for question in found_questions %}
+                <li><a href="{% url 'question-view' question.id %}/">{{ question.title }}</a>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <br>Questions not found.
+    {% endif %}
 {% endblock content %}
 </html>

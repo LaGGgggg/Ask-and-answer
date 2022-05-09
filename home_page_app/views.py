@@ -28,14 +28,20 @@ def view_main(request):
                 found_questions = \
                     Questions.objects.filter(title__contains=search_question_form.cleaned_data['content'])
 
-                if not found_questions:
-                    found_questions = 'Questions not found:('
+                if found_questions:
 
-                return render(request, 'home_page_app/index.html', {
-                    'latest_questions': latest_questions,
-                    'form': search_question_form,
-                    'found_questions': found_questions,
-                })
+                    return render(request, 'home_page_app/index.html', {
+                        'latest_questions': latest_questions,
+                        'form': search_question_form,
+                        'found_questions': found_questions,
+                    })
+
+                else:
+
+                    return render(request, 'home_page_app/index.html', {
+                        'latest_questions': latest_questions,
+                        'form': search_question_form,
+                    })
 
             else:
 
