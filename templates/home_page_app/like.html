@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Like test</title>
+</head>
+<body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <input type="button" id="like" value="Like"/>
+    <script>
+        $('#like').click(function(){
+            $.ajax({
+                type: 'POST',
+
+                url: '{{ request.get_full_path }}',
+
+                data: {'csrfmiddlewaretoken': '{{ csrf_token }}'},
+                dataType: 'json',
+                success: function(response){
+                    console.log('1');
+                    alert(response.likes_value);
+                },
+                error: function(rs, e){
+                    console.log('0');
+                    console.log(e);
+                }
+            });
+        })
+    </script>
+</body>
+</html>

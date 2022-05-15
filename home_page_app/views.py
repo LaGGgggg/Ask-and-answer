@@ -1,5 +1,9 @@
 from django.shortcuts import render
 from django.db.utils import IntegrityError
+from django.http import HttpResponse
+
+import json
+
 from .forms import *
 from .models import *
 
@@ -70,7 +74,7 @@ def add_question(request):
                     Questions.objects.create(
                         title=make_question_form.cleaned_data['title'],
                         content=make_question_form.cleaned_data['content'],
-                        author_name=request.user.username,
+                        user=request.user,
                     )
 
                     # cash by create question:
@@ -112,8 +116,8 @@ def view_question(request, question_id):
     question_data = {
         'title': question.title,
         'content': question.content,
-        'likes': question.likes_value,
-        'author': question.author_name,
+        'likes': question.likes,
+        'author': question.user.username,
         'pub_date': question.pub_date,
         'comments': get_comments,
     }
@@ -139,7 +143,7 @@ def view_question(request, question_id):
                     Comments.objects.create(
                         question_id=question_id,
                         content=make_comment_form.cleaned_data['content'],
-                        author_name=request.user.username,
+                        user=request.user,
                     )
 
                     # cash by create comment:
@@ -170,6 +174,32 @@ def view_question(request, question_id):
                 'question_data': question_data,
                 'form': MakeCommentForm(),
             })
+
+        case _:
+
+            return render(request, 'error.html')
+
+
+def like(request, question_id):
+
+    match request.method:
+
+        case 'POST':
+
+            user = request.user
+            question = Questions.objects.get(id=question_id)
+
+            if question.likes.filter(id=user.id).exists():
+                question.likes.remove(user)
+
+            else:
+                question.likes.add(user)
+
+            return HttpResponse(json.dumps({'likes_value': question.total_likes()}), content_type='application/json')
+
+        case 'GET':
+
+            return render(request, 'home_page_app/like.html')
 
         case _:
 
