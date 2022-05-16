@@ -109,18 +109,58 @@ def add_question(request):
 
 def view_question(request, question_id):
 
-    get_comments = Comments.objects.filter(question_id=question_id).order_by('likes_value').order_by('-pub_date')
+    get_comments = Comments.objects.filter(question_id=question_id).order_by('likes').order_by('-pub_date')
 
     question = Questions.objects.get(id=question_id)
 
     question_data = {
         'title': question.title,
         'content': question.content,
-        'likes': question.likes,
+        'likes': question.total_likes(),
         'author': question.user.username,
         'pub_date': question.pub_date,
         'comments': get_comments,
+        'id': question_id,
     }
+
+    if request.method == 'POST' and request.accepts('ajax_like'):
+
+        user = request.user
+
+        match request.POST.get('object_type'):
+
+            case 'question':
+
+                if question.likes.filter(id=user.id).exists():
+                    question.likes.remove(user)
+
+                else:
+                    question.likes.add(user)
+
+                return HttpResponse(
+                    json.dumps({
+                        'likes_value': question.total_likes()
+                    }),
+                    content_type='application/json',
+                )
+
+            case 'comment':
+
+                comment_id = request.POST.get('object_id')
+                comment = Comments.objects.get(id=comment_id)
+
+                if comment.likes.filter(id=user.id).exists():
+                    comment.likes.remove(user)
+
+                else:
+                    comment.likes.add(user)
+
+                return HttpResponse(
+                    json.dumps({
+                        'likes_value': comment.total_likes()
+                    }),
+                    content_type='application/json',
+                )
 
     match request.method:
 
@@ -186,8 +226,10 @@ def like(request, question_id):
 
         case 'POST':
 
+            object_id = request.POST.get('object_id')
+
             user = request.user
-            question = Questions.objects.get(id=question_id)
+            question = Questions.objects.get(id=object_id)
 
             if question.likes.filter(id=user.id).exists():
                 question.likes.remove(user)
@@ -195,7 +237,7 @@ def like(request, question_id):
             else:
                 question.likes.add(user)
 
-            return HttpResponse(json.dumps({'likes_value': question.total_likes()}), content_type='application/json')
+            return HttpResponse(json.dumps({'likes_value': question.total_likes(), 'c': object_id}), content_type='application/json')
 
         case 'GET':
 

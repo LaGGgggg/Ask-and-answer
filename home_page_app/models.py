@@ -24,11 +24,3 @@ class Comments(models.Model):
 
     def total_likes(self):
         return self.likes.count()
-
-
-# class Rating(models.Model):
-#
-#     object_type
-#     object_id
-#     user
-#     vote
