@@ -5,7 +5,7 @@
 {% block head_extra %}
     <link rel="stylesheet" href="{% static 'css_styles/right_bottom_text.css' %}">
     <link rel="stylesheet" href="{% static 'css_styles/post_default.css' %}">
-    <link rel="stylesheet" href="{% static 'css_styles/like_post_default.css' %}">
+    <link rel="stylesheet" href="{% static 'css_styles/like_button_default.css' %}">
 {% endblock head_extra %}
 {% block right_bar %}
     <button onclick="location.href='{% url 'main' %}'">To main page>></button>
@@ -17,12 +17,8 @@
     <p>{{ question_data.content|linebreaks }}</p>
     <div class="right_bottom">
         {{ question_data.pub_date }}<br>
-        <form id="like" method="POST" class="like">
-            Likes: {{ question_data.likes }}
-            <input type="button" value="Like">
-            <input type="hidden" id='object_type' value="question">
-            <input type="hidden" id='object_id' value="{{ question_data.id }}">
-        </form><br>
+        Likes: {{ question_data.likes }}
+        <button class="like_button" data-object_type="question">Like</button><br>
         Author: {{ question_data.author }}
     </div>
     {% if user.is_authenticated %}
@@ -42,11 +38,7 @@
             {{ comment.content|linebreaks }}<br>
             <div style="font-size:75%;">
                 {{ comment.pub_date }} Likes: {{ comment.likes_value }}
-                <form id="like" method="POST" class="like">
-                    <input type="button" value="Like">
-                    <input type="hidden" id='object_type' value="comment">
-                    <input type="hidden" id='object_id' value="{{ comment.id }}">
-                </form> Author: {{ comment.author_name }}
+                <button class="like_button" data-object_type="comment" data-object_id="{{ comment.id }}">Like</button>
             </div>
             <hr>
         {% endfor %}
@@ -55,24 +47,29 @@
     {% endif %}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script>
-        $('#like, _').click(function(){
+        $('.like_button').click(function(){
             $.ajax({
                 type: 'POST',
                 dataType: 'json',
                 url: '{{ request.get_full_path }}',
                 headers:{'accept': 'ajax_like'},
-                data: {'csrfmiddlewaretoken': '{{ csrf_token }}', 'object_type': $('#object_type').val(), 'object_id': $('#object_id').val()},
+                data: {
+                    'csrfmiddlewaretoken': '{{ csrf_token }}',
+                    'object_type': $(this).attr("data-object_type"),
+                    'object_id': $(this).attr("data-object_id"),
+                },
                 success: function(response){
                     console.log('Ajax worked ok.');
                     alert(response.likes_value);
                     console.log(response.likes_value);
+                    console.log(response.object_id);
                 },
                 error: function(rs, e){
                     console.log('Error in ajax!');
-                    console.log(rs.c);
                 }
             });
-        })
+            return false;
+        });
     </script>
 {% endblock content %}
 </html>

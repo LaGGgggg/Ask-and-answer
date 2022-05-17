@@ -139,7 +139,7 @@ def view_question(request, question_id):
 
                 return HttpResponse(
                     json.dumps({
-                        'likes_value': question.total_likes()
+                        'likes_value': question.total_likes(),
                     }),
                     content_type='application/json',
                 )
@@ -157,7 +157,16 @@ def view_question(request, question_id):
 
                 return HttpResponse(
                     json.dumps({
-                        'likes_value': comment.total_likes()
+                        'likes_value': comment.total_likes(),
+                        'object_id': comment_id
+                    }),
+                    content_type='application/json',
+                )
+
+            case _:
+                return HttpResponse(
+                    json.dumps({
+                        'likes_value': request.POST.get('object_id')
                     }),
                     content_type='application/json',
                 )
