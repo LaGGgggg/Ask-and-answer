@@ -17,8 +17,8 @@
     <p>{{ question_data.content|linebreaks }}</p>
     <div class="right_bottom">
         {{ question_data.pub_date }}<br>
-        Likes: {{ question_data.likes }}
-        <button class="like_button" data-object_type="question">Like</button><br>
+        Likes: <p class="like_update" data-object_type="question" data-object_id="{{ question_data.id }}">{{ question_data.likes }}</p>
+        <button class="like_button" data-object_type="question" data-object_id="{{ question_data.id }}">Like</button><br>
         Author: {{ question_data.author }}
     </div>
     {% if user.is_authenticated %}
@@ -37,7 +37,7 @@
         {% for comment in question_data.comments %}
             {{ comment.content|linebreaks }}<br>
             <div style="font-size:75%;">
-                {{ comment.pub_date }} Likes: {{ comment.likes_value }}
+                {{ comment.pub_date }} Likes: <p class="like_update" data-object_type="comment" data-object_id="{{ comment.id }}">{{ comment.likes_value }}</p>
                 <button class="like_button" data-object_type="comment" data-object_id="{{ comment.id }}">Like</button>
             </div>
             <hr>
@@ -48,6 +48,8 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script>
         $('.like_button').click(function(){
+            let object_type = $(this).attr("data-object_type");
+            let object_id = $(this).attr("data-object_id");
             $.ajax({
                 type: 'POST',
                 dataType: 'json',
@@ -55,14 +57,17 @@
                 headers:{'accept': 'ajax_like'},
                 data: {
                     'csrfmiddlewaretoken': '{{ csrf_token }}',
-                    'object_type': $(this).attr("data-object_type"),
-                    'object_id': $(this).attr("data-object_id"),
+                    'object_type': object_type,
+                    'object_id': object_id,
                 },
                 success: function(response){
+                    $('.like_update').text(response.likes_value);
+                    for(let el of $('.like_update')){
+                        if(object_type === el.dataset.object_type && object_id === el.dataset.object_id){
+                            el.replaceWith(response.likes_value);
+                        }
+                    }
                     console.log('Ajax worked ok.');
-                    alert(response.likes_value);
-                    console.log(response.likes_value);
-                    console.log(response.object_id);
                 },
                 error: function(rs, e){
                     console.log('Error in ajax!');

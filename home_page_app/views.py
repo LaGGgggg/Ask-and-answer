@@ -158,7 +158,6 @@ def view_question(request, question_id):
                 return HttpResponse(
                     json.dumps({
                         'likes_value': comment.total_likes(),
-                        'object_id': comment_id
                     }),
                     content_type='application/json',
                 )
