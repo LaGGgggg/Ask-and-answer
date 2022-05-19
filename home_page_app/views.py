@@ -109,7 +109,15 @@ def add_question(request):
 
 def view_question(request, question_id):
 
-    get_comments = Comments.objects.filter(question_id=question_id).order_by('likes').order_by('-pub_date')
+    def get_comments():
+
+        comments = Comments.objects.filter(question_id=question_id).order_by('likes').order_by('-pub_date')
+
+        #for i in comments:
+        #    if i.likes is None:
+        #        i.likes = 0
+
+        return comments
 
     question = Questions.objects.get(id=question_id)
 
@@ -119,7 +127,7 @@ def view_question(request, question_id):
         'likes': question.total_likes(),
         'author': question.user.username,
         'pub_date': question.pub_date,
-        'comments': get_comments,
+        'comments': get_comments(),
         'id': question_id,
     }
 
@@ -202,7 +210,7 @@ def view_question(request, question_id):
 
                     user.save()
 
-                    question_data['comments'] = get_comments
+                    question_data['comments'] = get_comments()
 
                     return render(request, 'home_page_app/view_question.html', {
                         'question_data': question_data,
@@ -222,34 +230,6 @@ def view_question(request, question_id):
                 'question_data': question_data,
                 'form': MakeCommentForm(),
             })
-
-        case _:
-
-            return render(request, 'error.html')
-
-
-def like(request, question_id):
-
-    match request.method:
-
-        case 'POST':
-
-            object_id = request.POST.get('object_id')
-
-            user = request.user
-            question = Questions.objects.get(id=object_id)
-
-            if question.likes.filter(id=user.id).exists():
-                question.likes.remove(user)
-
-            else:
-                question.likes.add(user)
-
-            return HttpResponse(json.dumps({'likes_value': question.total_likes(), 'c': object_id}), content_type='application/json')
-
-        case 'GET':
-
-            return render(request, 'home_page_app/like.html')
 
         case _:
 

@@ -17,7 +17,7 @@
     <p>{{ question_data.content|linebreaks }}</p>
     <div class="right_bottom">
         {{ question_data.pub_date }}<br>
-        Likes: <p class="like_update" data-object_type="question" data-object_id="{{ question_data.id }}">{{ question_data.likes }}</p>
+        Likes: <p class="like_update" id="like_update-question-{{ question_data.id }}" data-object_type="question" data-object_id="{{ question_data.id }}">{{ question_data.likes }}</p>
         <button class="like_button" data-object_type="question" data-object_id="{{ question_data.id }}">Like</button><br>
         Author: {{ question_data.author }}
     </div>
@@ -37,7 +37,7 @@
         {% for comment in question_data.comments %}
             {{ comment.content|linebreaks }}<br>
             <div style="font-size:75%;">
-                {{ comment.pub_date }} Likes: <p class="like_update" data-object_type="comment" data-object_id="{{ comment.id }}">{{ comment.likes_value }}</p>
+                {{ comment.pub_date }} Likes: <p class="like_update" id="like_update-comment-{{ comment.id }}" data-object_type="comment" data-object_id="{{ comment.id }}">{{ comment.likes }}</p>
                 <button class="like_button" data-object_type="comment" data-object_id="{{ comment.id }}">Like</button>
             </div>
             <hr>
@@ -61,12 +61,7 @@
                     'object_id': object_id,
                 },
                 success: function(response){
-                    $('.like_update').text(response.likes_value);
-                    for(let el of $('.like_update')){
-                        if(object_type === el.dataset.object_type && object_id === el.dataset.object_id){
-                            el.replaceWith(response.likes_value);
-                        }
-                    }
+                    $(`#like_update-${object_type}-${object_id}`).text(response.likes_value);
                     console.log('Ajax worked ok.');
                 },
                 error: function(rs, e){
