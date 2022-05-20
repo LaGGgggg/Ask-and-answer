@@ -2,6 +2,7 @@
 <html lang="en">
 {% extends 'base.html' %}
 {% load static %}
+{% load home_page_app_extra %}
 {% block head_extra %}
     <link rel="stylesheet" href="{% static 'css_styles/right_bottom_text.css' %}">
     <link rel="stylesheet" href="{% static 'css_styles/post_default.css' %}">
@@ -37,7 +38,7 @@
         {% for comment in question_data.comments %}
             {{ comment.content|linebreaks }}<br>
             <div style="font-size:75%;">
-                {{ comment.pub_date }} Likes: <p class="like_update" id="like_update-comment-{{ comment.id }}" data-object_type="comment" data-object_id="{{ comment.id }}">{{ comment.likes }}</p>
+                {{ comment.pub_date }} Likes: <p class="like_update" id="like_update-comment-{{ comment.id }}" data-object_type="comment" data-object_id="{{ comment.id }}">{{ comment.id|get_comment_likes_value }}</p>
                 <button class="like_button" data-object_type="comment" data-object_id="{{ comment.id }}">Like</button>
             </div>
             <hr>
@@ -61,7 +62,7 @@
                     'object_id': object_id,
                 },
                 success: function(response){
-                    $(`#like_update-${object_type}-${object_id}`).text(response.likes_value);
+                    $(`#like_update-${object_type}-${object_id}`).text(response.comments_likes_values);
                     console.log('Ajax worked ok.');
                 },
                 error: function(rs, e){

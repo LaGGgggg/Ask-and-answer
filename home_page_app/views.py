@@ -109,15 +109,7 @@ def add_question(request):
 
 def view_question(request, question_id):
 
-    def get_comments():
-
-        comments = Comments.objects.filter(question_id=question_id).order_by('likes').order_by('-pub_date')
-
-        #for i in comments:
-        #    if i.likes is None:
-        #        i.likes = 0
-
-        return comments
+    get_comments = Comments.objects.filter(question_id=question_id).order_by('likes').order_by('-pub_date')
 
     question = Questions.objects.get(id=question_id)
 
@@ -127,7 +119,7 @@ def view_question(request, question_id):
         'likes': question.total_likes(),
         'author': question.user.username,
         'pub_date': question.pub_date,
-        'comments': get_comments(),
+        'comments': get_comments,
         'id': question_id,
     }
 
@@ -147,7 +139,7 @@ def view_question(request, question_id):
 
                 return HttpResponse(
                     json.dumps({
-                        'likes_value': question.total_likes(),
+                        'comments_likes_values': question.total_likes(),
                     }),
                     content_type='application/json',
                 )
@@ -165,15 +157,7 @@ def view_question(request, question_id):
 
                 return HttpResponse(
                     json.dumps({
-                        'likes_value': comment.total_likes(),
-                    }),
-                    content_type='application/json',
-                )
-
-            case _:
-                return HttpResponse(
-                    json.dumps({
-                        'likes_value': request.POST.get('object_id')
+                        'comments_likes_values': comment.total_likes(),
                     }),
                     content_type='application/json',
                 )
@@ -210,7 +194,7 @@ def view_question(request, question_id):
 
                     user.save()
 
-                    question_data['comments'] = get_comments()
+                    question_data['comments'] = get_comments
 
                     return render(request, 'home_page_app/view_question.html', {
                         'question_data': question_data,
