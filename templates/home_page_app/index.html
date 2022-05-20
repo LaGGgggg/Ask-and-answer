@@ -41,7 +41,7 @@
     {% if found_questions %}
         <ul>
             {% for question in found_questions %}
-                <li><a href="{% url 'question-view' question.id %}/">{{ question.title }}</a>
+                <li><a href="{% url 'question-view' question.id %}">{{ question.title }}</a>
             {% endfor %}
         </ul>
     {% else %}

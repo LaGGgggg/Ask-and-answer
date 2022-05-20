@@ -63,11 +63,7 @@
                 },
                 success: function(response){
                     $(`#like_update-${object_type}-${object_id}`).text(response.comments_likes_values);
-                    console.log('Ajax worked ok.');
                 },
-                error: function(rs, e){
-                    console.log('Error in ajax!');
-                }
             });
             return false;
         });
