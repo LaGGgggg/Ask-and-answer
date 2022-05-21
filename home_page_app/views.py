@@ -112,6 +112,8 @@ def view_question(request, question_id):
     get_comments = Comments.objects.filter(question_id=question_id).order_by('likes').order_by('-pub_date')
 
     question = Questions.objects.get(id=question_id)
+    user = request.user
+    is_liked = question.likes.filter(id=user.id).exists()
 
     question_data = {
         'title': question.title,
@@ -120,12 +122,11 @@ def view_question(request, question_id):
         'author': question.user.username,
         'pub_date': question.pub_date,
         'comments': get_comments,
+        'is_liked': is_liked,
         'id': question_id,
     }
 
     if request.method == 'POST' and request.accepts('ajax_like'):
-
-        user = request.user
 
         match request.POST.get('object_type'):
 

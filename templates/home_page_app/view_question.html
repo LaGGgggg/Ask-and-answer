@@ -18,8 +18,23 @@
     <p>{{ question_data.content|linebreaks }}</p>
     <div class="right_bottom">
         {{ question_data.pub_date }}<br>
-        Likes: <p class="like_update" id="like_update-question-{{ question_data.id }}" data-object_type="question" data-object_id="{{ question_data.id }}">{{ question_data.likes }}</p>
-        <button class="like_button" data-object_type="question" data-object_id="{{ question_data.id }}">Like</button><br>
+        Likes:
+        <p class="like_update"
+           id="like_update-question-{{ question_data.id }}"
+           data-object_type="question"
+           data-object_id="{{ question_data.id }}">
+            {{ question_data.likes }}
+        </p>
+        <button class="like_button"
+                id="like_button-question-{{ question_data.id }}"
+                data-is_liked="{{ question_data.is_liked }}"
+                data-object_type="question" data-object_id="{{ question_data.id }}">
+            {% if question_data.is_liked %}
+                💔
+            {% else %}
+                ❤
+            {% endif %}
+        </button><br>
         Author: {{ question_data.author }}
     </div>
     {% if user.is_authenticated %}
@@ -38,17 +53,38 @@
         {% for comment in question_data.comments %}
             {{ comment.content|linebreaks }}<br>
             <div style="font-size:75%;">
-                {{ comment.pub_date }} Likes: <p class="like_update" id="like_update-comment-{{ comment.id }}" data-object_type="comment" data-object_id="{{ comment.id }}">{{ comment.id|get_comment_likes_value }}</p>
-                <button class="like_button" data-object_type="comment" data-object_id="{{ comment.id }}">Like</button>
+                {{ comment.pub_date }} Likes:
+                <p class="like_update"
+                   id="like_update-comment-{{ comment.id }}"
+                   data-object_type="comment"
+                   data-object_id="{{ comment.id }}">
+                    {{ comment.id|get_comment_likes_value }}
+                </p>
+                <button class="like_button"
+                        id="like_button-comment-{{ comment.id }}"
+                        data-is_liked="{{ request.user.id|is_comment_liked_by_user:comment.id }}"
+                        data-object_type="comment"
+                        data-object_id="{{ comment.id }}">
+                    {% if request.user.id|is_comment_liked_by_user:comment.id %}
+                        💔
+                    {% else %}
+                        ❤
+                    {% endif %}
+                </button>
             </div>
             <hr>
         {% endfor %}
     {% else %}
         <b>Be the first!</b>
     {% endif %}
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous">
+    </script>
     <script>
         $('.like_button').click(function(){
+            const like_heart = '❤';
+            const unlike_heart = '💔';
             let object_type = $(this).attr("data-object_type");
             let object_id = $(this).attr("data-object_id");
             $.ajax({
@@ -62,7 +98,27 @@
                     'object_id': object_id,
                 },
                 success: function(response){
+                    // Changes likes value:
                     $(`#like_update-${object_type}-${object_id}`).text(response.comments_likes_values);
+
+                    // Changes button image:
+                    let object = $(`#like_button-${object_type}-${object_id}`);
+
+                    // Checks like or not and changes it
+                    if(object.attr("data-is_liked") === 'True'){
+                        object.attr("data-is_liked", "False");
+                    }
+                    else{
+                        object.attr("data-is_liked", "True");
+                    }
+
+                    // Changes image
+                    if(object.attr("data-is_liked") === 'True'){
+                        object.text(unlike_heart);
+                    }
+                    else{
+                        object.text(like_heart);
+                    }
                 },
             });
             return false;
