@@ -3,6 +3,7 @@ footer{font-size:small;}
 img{width:350px;}
 body{font-family:Verdana;}
 hr{background-color:blue;}
+input{border-radius:12px;}
 ul{
     color:navy;
     padding-left:30px;
@@ -11,6 +12,7 @@ button{
     margin-top:5px;
     width:160px;
     height:40px;
+    border-radius:12px;
 }
 .sidebar{
     margin-top:0px;
