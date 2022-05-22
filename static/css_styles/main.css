@@ -3,7 +3,10 @@ footer{font-size:small;}
 img{width:350px;}
 body{font-family:Verdana;}
 hr{background-color:blue;}
-input{border-radius:12px;}
+input{
+    border-radius:12px;
+    background-color:cornsilk;
+}
 ul{
     color:navy;
     padding-left:30px;
@@ -13,6 +16,7 @@ button{
     width:160px;
     height:40px;
     border-radius:12px;
+    background-color:lightskyblue;
 }
 .sidebar{
     margin-top:0px;

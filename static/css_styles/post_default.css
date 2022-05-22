@@ -6,6 +6,8 @@
     height:25px;
     width:200px;
     margin: 7px 10px 10px 0;
+    background-color:cornsilk;
+    border-radius:12px;
 }
 .input_big{
     color:blue;
@@ -14,4 +16,6 @@
     height:500px;
     width:800px;
     margin: 7px 10px 10px 0;
+    background-color:cornsilk;
+    border-radius:12px;
 }

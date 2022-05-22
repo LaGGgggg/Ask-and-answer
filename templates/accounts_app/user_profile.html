@@ -7,7 +7,7 @@
 {% block right_bar %}
     <button onclick="location.href='{% url 'main' %}'">To main page>></button><br>
     <button onclick="location.href='{% url 'create-question' %}'">Create question>></button><br>
-    <button onclick="location.href='{% url 'logout' %}'">Log out>></button>
+    <button onclick="location.href='{% url 'logout' %}'" style="background-color:hotpink;">Log out>></button>
 {% endblock right_bar %}
 {% block content %}
     <h2>Your cash: {{ cash }}</h2>
