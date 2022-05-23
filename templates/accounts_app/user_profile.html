@@ -7,6 +7,9 @@
 {% block right_bar %}
     <button onclick="location.href='{% url 'main' %}'">To main page>></button><br>
     <button onclick="location.href='{% url 'create-question' %}'">Create question>></button><br>
+    {% if user.is_superuser %}
+        <button onclick="location.href='{% url 'admin:index' %}'" style="background-color:orange;">To admin panel>></button><br>
+    {% endif %}
     <button onclick="location.href='{% url 'logout' %}'" style="background-color:hotpink;">Log out>></button>
 {% endblock right_bar %}
 {% block content %}

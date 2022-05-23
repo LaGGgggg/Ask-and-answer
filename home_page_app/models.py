@@ -10,6 +10,9 @@ class Questions(models.Model):
     pub_date = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='questions_user')
 
+    def __str__(self):
+        return self.title
+
     def total_likes(self):
         return self.likes.count()
 
@@ -21,6 +24,9 @@ class Comments(models.Model):
     likes = models.ManyToManyField(User, related_name='comments_likes')
     pub_date = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments_user')
+
+    def __str__(self):
+        return f'Question: {self.question}, id: {self.question.id}'
 
     def total_likes(self):
         return self.likes.count()

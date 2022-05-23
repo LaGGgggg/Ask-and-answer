@@ -9,6 +9,9 @@
     {% if user.is_authenticated %}
             <button onclick="location.href='{% url 'create-question' %}'">Create question>></button><br>
             <button onclick="location.href='{% url 'profile' %}'">To your profile>></button>
+            {% if user.is_superuser %}
+                <br><button onclick="location.href='{% url 'admin:index' %}'" style="background-color:orange;">To admin panel>></button>
+            {% endif %}
     {% endif %}
 {% endblock right_bar %}
 {% block header %}

@@ -7,6 +7,9 @@
 {% endblock head_extra %}
 {% block right_bar %}
     <button onclick="location.href='{% url 'main' %}'">To main page>></button>
+    {% if user.is_superuser %}
+        <br><button onclick="location.href='{% url 'admin:index' %}'" style="background-color:orange;">To admin panel>></button>
+    {% endif %}
 {% endblock right_bar %}
 {% block header %}
     Enter data please:
