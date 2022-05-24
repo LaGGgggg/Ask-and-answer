@@ -28,16 +28,18 @@
            data-object_id="{{ question_data.id }}">
             {{ question_data.likes }}
         </p>
-        <button class="like_button"
-                id="like_button-question-{{ question_data.id }}"
-                data-is_liked="{{ question_data.is_liked }}"
-                data-object_type="question" data-object_id="{{ question_data.id }}">
-            {% if question_data.is_liked %}
-                💔
-            {% else %}
-                ❤
-            {% endif %}
-        </button><br>
+        {% if user.is_authenticated %}
+            <button class="like_button"
+                    id="like_button-question-{{ question_data.id }}"
+                    data-is_liked="{{ question_data.is_liked }}"
+                    data-object_type="question" data-object_id="{{ question_data.id }}">
+                {% if question_data.is_liked %}
+                    💔
+                {% else %}
+                    ❤
+                {% endif %}
+            </button><br>
+        {% endif %}
         Author: {{ question_data.author }}
     </div>
     {% if user.is_authenticated %}
@@ -54,7 +56,7 @@
     <h2>Recent comments:</h2>
     {% if question_data.comments %}
         {% for comment in question_data.comments %}
-            {{ comment.content|linebreaks }}<br>
+            {{ comment.content|linebreaks }}
             <div style="font-size:75%;">
                 {{ comment.pub_date }} Likes:
                 <p class="like_update"
@@ -63,17 +65,19 @@
                    data-object_id="{{ comment.id }}">
                     {{ comment.id|get_comment_likes_value }}
                 </p>
-                <button class="like_button"
-                        id="like_button-comment-{{ comment.id }}"
-                        data-is_liked="{{ request.user.id|is_comment_liked_by_user:comment.id }}"
-                        data-object_type="comment"
-                        data-object_id="{{ comment.id }}">
-                    {% if request.user.id|is_comment_liked_by_user:comment.id %}
-                        💔
-                    {% else %}
-                        ❤
-                    {% endif %}
-                </button>
+                {% if user.is_authenticated %}
+                    <button class="like_button"
+                            id="like_button-comment-{{ comment.id }}"
+                            data-is_liked="{{ request.user.id|is_comment_liked_by_user:comment.id }}"
+                            data-object_type="comment"
+                            data-object_id="{{ comment.id }}">
+                        {% if request.user.id|is_comment_liked_by_user:comment.id %}
+                            💔
+                        {% else %}
+                            ❤
+                        {% endif %}
+                    </button>
+                {% endif %}
             </div>
             <hr>
         {% endfor %}
@@ -94,7 +98,6 @@
                 type: 'POST',
                 dataType: 'json',
                 url: '{{ request.get_full_path }}',
-                headers:{'accept': 'ajax_like'},
                 data: {
                     'csrfmiddlewaretoken': '{{ csrf_token }}',
                     'object_type': object_type,
