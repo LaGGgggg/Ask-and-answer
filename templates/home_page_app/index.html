@@ -12,20 +12,18 @@
             {% if user.is_superuser %}
                 <br><button onclick="location.href='{% url 'admin:index' %}'" style="background-color:orange;">To admin panel>></button>
             {% endif %}
+    {% else %}
+        <p>
+            <button onclick="location.href='{% url 'login' %}'">sign in</button><br>
+            <button onclick="location.href='{% url 'signup' %}'">sign up</button>
+        </p>
     {% endif %}
 {% endblock right_bar %}
 {% block header %}
     Hello everyone!
 {% endblock header %}
 {% block content %}
-    <p>Listen:<br>"Houii."<br><br>What?</p>
-    <img src="{% static 'images/factorio.png'%}">
-    {% if user.is_anonymous  %}
-        <p>
-            <button onclick="location.href='{% url 'login' %}'">sign in</button>
-            <button onclick="location.href='{% url 'signup' %}'">sign up</button><br>
-        </p>
-    {% endif %}
+    <h3>What you can do? All in the title!(and little more).<br>Pleasant explore!</h3>
     <h1>Latest questions:</h1>
     <ul>
         {% for question in latest_questions %}

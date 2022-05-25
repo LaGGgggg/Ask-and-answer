@@ -42,8 +42,6 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'simple_history',
     'widget_tweaks',
-    'bootstrap4',
-    'crispy_forms',
 ]
 
 MIDDLEWARE = [
