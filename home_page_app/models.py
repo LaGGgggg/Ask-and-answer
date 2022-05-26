@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-class Questions(models.Model):
+class Question(models.Model):
 
     title = models.CharField(max_length=30)
     content = models.TextField(unique=True)
@@ -17,9 +17,9 @@ class Questions(models.Model):
         return self.likes.count()
 
 
-class Comments(models.Model):
+class Comment(models.Model):
 
-    question = models.ForeignKey(Questions, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
     content = models.TextField()
     likes = models.ManyToManyField(User, related_name='comments_likes')
     pub_date = models.DateTimeField(auto_now_add=True)

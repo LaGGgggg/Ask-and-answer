@@ -12,7 +12,7 @@ from accounts_app.models import Profile
 
 def view_main(request):
 
-    latest_questions = Questions.objects.order_by('-pub_date')[:5]
+    latest_questions = Question.objects.order_by('-pub_date')[:5]
 
     if request.method == 'GET':
 
@@ -28,7 +28,7 @@ def view_main(request):
         if search_question_form.is_valid():
 
             found_questions = \
-                Questions.objects.filter(title__contains=search_question_form.cleaned_data['content'])
+                Question.objects.filter(title__contains=search_question_form.cleaned_data['content'])
 
             if found_questions:
 
@@ -66,7 +66,7 @@ def add_question(request):
 
             try:
 
-                Questions.objects.create(
+                Question.objects.create(
                     title=make_question_form.cleaned_data['title'],
                     content=make_question_form.cleaned_data['content'],
                     user=request.user,
@@ -101,9 +101,9 @@ def add_question(request):
 
 def view_question(request, question_id):
 
-    get_comments = Comments.objects.filter(question_id=question_id).order_by('likes').order_by('-pub_date')
+    get_comments = Comment.objects.filter(question_id=question_id).order_by('likes').order_by('-pub_date')
 
-    question = Questions.objects.get(id=question_id)
+    question = Question.objects.get(id=question_id)
     user = request.user
     is_liked = question.likes.filter(id=user.id).exists()
 
@@ -139,7 +139,7 @@ def view_question(request, question_id):
         elif request.POST.get('object_type') == 'comment':
 
             comment_id = request.POST.get('object_id')
-            comment = Comments.objects.get(id=comment_id)
+            comment = Comment.objects.get(id=comment_id)
 
             if comment.likes.filter(id=user.id).exists():
                 comment.likes.remove(user)
@@ -160,7 +160,7 @@ def view_question(request, question_id):
 
         if make_comment_form.is_valid():
 
-            if Comments.objects.filter(content=make_comment_form.cleaned_data['content']).exists():
+            if Comment.objects.filter(content=make_comment_form.cleaned_data['content']).exists():
 
                 return render(request, 'home_page_app/view_question.html', {
                     'question_data': question_data,
@@ -170,7 +170,7 @@ def view_question(request, question_id):
 
             else:
 
-                Comments.objects.create(
+                Comment.objects.create(
                     question_id=question_id,
                     content=make_comment_form.cleaned_data['content'],
                     user=request.user,

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Questions, Comments
+from .models import Question, Comment
 
-admin.site.register(Questions)
-admin.site.register(Comments)
+admin.site.register(Question)
+admin.site.register(Comment)
