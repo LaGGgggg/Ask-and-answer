@@ -1,8 +1,11 @@
 # Ask-and-answer
 
-it's simple, this is a site where you can ask questions and answer them. The project has an authorization and registration system, 
-the ability to create questions and comments, like them, there is a user balance system (points are issued for writing questions and comments.) 
-and its history, and also it is possible to administer the site through the built-in django admin panel. The project uses postgresql and ajax.
+it's simple, this is a site where you can ask questions and answer them. 
+The project has an authorization and registration system, 
+the ability to create questions and comments, like them, 
+there is a user balance system (points are issued for writing questions and comments.) 
+and its history, and also it is possible to administer the site through the built-in 
+django admin panel. The project uses postgresql and ajax.
 
 # How to start the project?
 
@@ -41,14 +44,21 @@ python manage.py runserver
 
 ## Main page
 
-
-
-### Authenticated
-
-
-
-### Not authenticated
-
+#### [index.html](templates/home_page_app/index.html)
+### If the user is authenticated
+--image of the main page without authorization--
+If the user is not authenticated, he will see the registration and authorization buttons
+in the right sidebar, linking him to the corresponding pages.
+#### [login.html](templates/registration/login.html)
+--image of registration--
+#### [sign_up.html](templates/registration/sign_up.html)
+--image of authorization--
+Also on the page you can see the latest questions and find the question by name.
+If you need to see the text of the question, then just click on it to go.
+(About this page a little further.)
+### If the user is not authenticated
+--image of the main page with authorization--
+If the user is authenticated, he will see.....
 
 
 ## User profie page
