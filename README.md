@@ -44,11 +44,11 @@ python manage.py runserver
 
 ## Main page
 
-#### [index.html](templates/home_page_app/index.html)
 ### If the user is authenticated
---image of the main page without authorization--
 If the user is not authenticated, he will see the registration and authorization buttons
 in the right sidebar, linking him to the corresponding pages.
+#### [index.html](templates/home_page_app/index.html)
+--image of the main page without authorization--
 #### [login.html](templates/registration/login.html)
 --image of registration--
 #### [sign_up.html](templates/registration/sign_up.html)
@@ -57,13 +57,17 @@ Also on the page you can see the latest questions and find the question by name.
 If you need to see the text of the question, then just click on it to go.
 (About this page a little further.)
 ### If the user is not authenticated
+If the user is authenticated, then instead of the authorization and registration buttons,
+he will see the buttons for going to the profile and creating a question.(More on that later.)
 --image of the main page with authorization--
-If the user is authenticated, he will see.....
 
+## User profile page
 
-## User profie page
-
-
+On the profile page, the user can see his balance (cash) and the history of its changes
+(up to the last 30 transactions). The sidebar contains buttons for going to the main page,
+creating a question (more on that later) and logging out of the account.
+#### [profile.html](templates/accounts_app/user_profile.html)
+--image of user_profile--
 
 ## Create question page
 
