@@ -15,9 +15,11 @@
     <footer>
         {% if user.is_authenticated %}
             Authenticated: {{ user.username }}<br>
+        {% else %}
+            Not authenticated<br>
         {% endif %}
         {% now 'j F Y l h:iA' %}<br>
-        <address>Poni22poni23@yandex.ru</address>
+        Support: <address style="display:inline;">Poni22poni23@yandex.ru</address>
     </footer>
 </body>
 </html>

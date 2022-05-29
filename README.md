@@ -87,7 +87,9 @@ fields for entering the title and content of the question
 
 ## Footer functional
 
-
+In the footer, which is present on all pages of the site, you can see the current time,
+the address for contacting technical support and whether the user is authorized.
+(If yes, then his login will be written there.)
 
 # Thanks
 
