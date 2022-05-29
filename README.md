@@ -71,13 +71,21 @@ creating a question (more on that later) and logging out of the account.
 
 ## Create question page
 
-
+On the page for creating a question, you can see the exit button to the menu and
+fields for entering the title and content of the question
+(there is a check for the same questions and lengths of the title (9<X<31) and content (X>80))
+#### [create_question.html](templates/home_page_app/create_question.html)
+--image of create_question--
 
 ## View question page
 
 
 
 ## Admin functions
+
+
+
+## Footer functional
 
 
 

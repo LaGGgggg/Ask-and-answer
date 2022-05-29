@@ -10,7 +10,7 @@ class MakeQuestionForm(forms.Form):
     )
     content = forms.CharField(
         widget=forms.widgets.Textarea(attrs={'class': 'input_big'}),
-        min_length=160,
+        min_length=80,
     )
 
 
@@ -25,5 +25,5 @@ class SearchQuestionForm(forms.Form):
 
     content = forms.CharField(
         widget=forms.widgets.TextInput(attrs={'class': 'input'}),
-        max_length=50
+        max_length=30,
     )
