@@ -44,9 +44,9 @@ python manage.py runserver
 
 ## Main page
 
-### If the user is authenticated
-If the user is not authenticated, he will see the registration and authorization buttons
-in the right sidebar, linking him to the corresponding pages.
+### If the user is not authenticated
+If the user is not authenticated, he will see the registration and authorization buttons in the right sidebar,
+linking him to the corresponding pages.
 #### [index.html](templates/home_page_app/index.html)
 --image of the main page without authorization--
 #### [login.html](templates/registration/login.html)
@@ -56,9 +56,10 @@ in the right sidebar, linking him to the corresponding pages.
 Also on the page you can see the latest questions and find the question by name.
 If you need to see the text of the question, then just click on it to go.
 (About this page a little further.)
-### If the user is not authenticated
+### If the user is authenticated
 If the user is authenticated, then instead of the authorization and registration buttons,
 he will see the buttons for going to the profile and creating a question.(More on that later.)
+#### [index.html](templates/home_page_app/index.html)
 --image of the main page with authorization--
 
 ## User profile page
@@ -71,15 +72,20 @@ creating a question (more on that later) and logging out of the account.
 
 ## Create question page
 
-On the page for creating a question, you can see the exit button to the menu and
-fields for entering the title and content of the question
-(there is a check for the same questions and lengths of the title (9<X<31) and content (X>80))
+On the question creation page, you can see the exit button to the menu and fields for entering
+the title and content of the question (there is a check for the uniqueness of the question and 
+the length of the title (9<X<31) and content (X>80)). For creating a question, the user is awarded points.
 #### [create_question.html](templates/home_page_app/create_question.html)
 --image of create_question--
 
 ## View question page
 
-
+On the view question page, you can see the question data (Title, text, creation date, author and number of likes.),
+comments (Their data is similar to the question data.), as well as a field for creating them
+(There is a uniqueness check, points are awarded for creating a comment.).
+You can like the question and comments (you can remove the like by pressing the button again.), this is done with ajax.
+#### [view_question.html](templates/home_page_app/view_question.html)
+--image of view_question--
 
 ## Admin functions
 
