@@ -107,6 +107,6 @@ the address for contacting technical support and whether the user is authorized.
 
 Poni22poni23@yandex.ru
 
-# Licence
+# License
 
-
+#### [LICENSE.md](LICENSE.md)
