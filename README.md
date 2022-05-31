@@ -87,9 +87,11 @@ You can like the question and comments (you can remove the like by pressing the 
 #### [view_question.html](templates/home_page_app/view_question.html)
 --image of view_question--
 
-## Admin functions
+## Superuser function
 
-
+If you are logged in as a superuser, then on each page of the site there will be a button 
+that will take you to the admin panel.
+--image of main page with superuser button--
 
 ## Footer functional
 
