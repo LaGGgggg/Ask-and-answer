@@ -1,3 +1,11 @@
+Badges:
+- License
+- Watchers
+- files?
+- code size?
+- total lines?
+- last modified
+
 # Ask-and-answer
 
 it's simple, this is a site where you can ask questions and answer them. 
@@ -40,7 +48,58 @@ python manage.py migrate
 ```bash
 python manage.py runserver
 ```
-# Project pages
+
+# Quickly about the functionality of the site
+
+- Main page
+  - Latest questions
+  - Find the question by name
+  - User is not authenticated
+    - Sidebar buttons
+      - Registration
+      - Authorization
+  - User is authenticated
+    - Sidebar buttons
+      - User profile
+      - Create question
+- User profile page
+  - User balance
+  - History of balance changes
+    - Sidebar buttons
+      - To main page
+      - Create question
+      - Log out
+- Create question page
+  - Fields
+    - Title input
+    - Content input
+  - Sidebar buttons
+    - To main page
+- View question page
+  - Question
+    - Question data
+      - Title
+      - Text
+      - Creation date
+      - Author name
+      - Number of likes
+    - Like/dislike button
+  - Question comments
+    - Data is similar to the question data
+    - Like/dislike buttons
+  - Field to create a comment
+    - Text input
+- Superuser function
+  - "To admin panel" button on each page
+- Footer functional
+  - Current time
+  - Technical support email
+  - User is authenticated
+    - "Authenticated: " + username
+  - User is not authenticated
+    - "Not authenticated"
+
+# Details about the functionality of the site
 
 ## Main page
 
@@ -80,7 +139,7 @@ the length of the title (9<X<31) and content (X>80)). For creating a question, t
 
 ## View question page
 
-On the view question page, you can see the question data (Title, text, creation date, author and number of likes.),
+On the view question page, you can see the question data (Title, text, creation date, author name and number of likes.),
 comments (Their data is similar to the question data.), as well as a field for creating them
 (There is a uniqueness check, points are awarded for creating a comment.).
 You can like the question and comments (you can remove the like by pressing the button again.), this is done with ajax.
@@ -96,7 +155,7 @@ that will take you to the admin panel.
 ## Footer functional
 
 In the footer, which is present on all pages of the site, you can see the current time,
-the address for contacting technical support and whether the user is authorized.
+the address for contacting technical support and whether the user is authenticated.
 (If yes, then his login will be written there.)
 
 # Authors
@@ -110,6 +169,7 @@ it was thanks to them that I started and still program, thank you so much!
 
 # Contacts
 
+For any questions:<br>
 TulNik0@yandex.ru
 
 # License
