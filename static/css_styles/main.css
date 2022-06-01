@@ -17,13 +17,15 @@ button{
     width:160px;
     height:40px;
     border-radius:12px;
-    background-color:lightskyblue;
 }
 .sidebar{
     margin-left:0px;
     margin-top:0px;
     position:relative;
     float:right;
+}
+.sidebar button{
+    background-color:lightskyblue;
 }
 .auto_transfer_text{
     overflow-wrap:break-word;

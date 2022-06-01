@@ -99,13 +99,18 @@ In the footer, which is present on all pages of the site, you can see the curren
 the address for contacting technical support and whether the user is authorized.
 (If yes, then his login will be written there.)
 
+# Authors
+
+This project was done only by me, no one else helped in its creation.
+
 # Thanks
 
-
+I want to separately thank the great community,
+it was thanks to them that I started and still program, thank you so much!
 
 # Contacts
 
-Poni22poni23@yandex.ru
+TulNik0@yandex.ru
 
 # License
 
