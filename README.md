@@ -1,10 +1,6 @@
-Badges:
-- License
-- Watchers
-- files?
-- code size?
-- total lines?
-- last modified
+![GitHub](https://img.shields.io/github/license/LaGGgggg/Ask-and-answer)
+![GitHub watchers](https://img.shields.io/github/watchers/LaGGgggg/Ask-and-answer)
+![GitHub last commit](https://img.shields.io/github/last-commit/LaGGgggg/Ask-and-answer)
 
 # Ask-and-answer
 
