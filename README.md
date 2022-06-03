@@ -146,8 +146,8 @@ You can like the question and comments (you can remove the like by pressing the 
 
 If you are logged in as a superuser, then on each page of the site there will be a button 
 that will take you to the admin panel.
-![](https://github.com/LaGGgggg/Ask-and-answer/blob/main/site_screens/superuser_fuction_1.png)
-![](https://github.com/LaGGgggg/Ask-and-answer/blob/main/site_screens/superuser_fuction_2.png)
+![](https://github.com/LaGGgggg/Ask-and-answer/blob/main/site_screens/superuser_function_1.png)
+![](https://github.com/LaGGgggg/Ask-and-answer/blob/main/site_screens/superuser_function_2.png)
 
 ## Footer functional
 
