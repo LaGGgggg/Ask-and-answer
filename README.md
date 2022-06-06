@@ -4,7 +4,7 @@
 
 # Ask-and-answer
 
-it's simple, this is a site where you can ask questions and answer them. 
+It's simple, this is a site where you can ask questions and answer them. 
 The project has an authorization and registration system, 
 the ability to create questions and comments, like them, 
 there is a user balance system (points are issued for writing questions and comments.) 
