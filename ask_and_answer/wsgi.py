@@ -14,5 +14,3 @@ from django.core.wsgi import get_wsgi_application
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ask_and_answer.settings')
 
 application = get_wsgi_application()
-
-app = application
