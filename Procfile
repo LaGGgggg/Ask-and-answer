@@ -1,1 +1,1 @@
-web: gunicorn PROJECT_NAME.wsgi --log-file -
+web: gunicorn ask_and_answer.wsgi --log-file -
