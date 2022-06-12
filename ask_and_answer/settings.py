@@ -131,6 +131,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR
 
 STATICFILES_DIRS = [
     BASE_DIR.joinpath('static')
@@ -146,5 +147,3 @@ LOGOUT_REDIRECT_URL = '/'
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
-
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
