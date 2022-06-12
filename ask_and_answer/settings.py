@@ -26,7 +26,8 @@ SECRET_KEY = 'django-insecure-0jucsw#b0283hudro0iqtr37ql%@_ud@&v^xt=rg7ksee6nkc*
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '.herokuapp.com'
+    '.herokuapp.com',
+    '127.0.0.1',
 ]
 
 
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
     'accounts_app.apps.AccountsAppConfig',
     'simple_history',
     'widget_tweaks',
+    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
@@ -54,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'simple_history.middleware.HistoryRequestMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'ask_and_answer.urls'
@@ -147,3 +150,13 @@ LOGOUT_REDIRECT_URL = '/'
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
+
+
+# If user is staff, show debug_toolbar
+def show_debug_toolbar(request):
+    return request.user.is_staff
+
+
+DEBUG_TOOLBAR_CONFIG = {
+    'SHOW_TOOLBAR_CALLBACK': 'ask_and_answer.settings.show_debug_toolbar',
+}
