@@ -91,7 +91,8 @@ WSGI_APPLICATION = 'ask_and_answer.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        env('DATABASE_URL')
+        env('DATABASE_URL'),
+        engine='django.db.backends.postgresql_psycopg2',
     ),
 }
 
