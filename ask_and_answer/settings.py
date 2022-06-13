@@ -91,7 +91,7 @@ WSGI_APPLICATION = 'ask_and_answer.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=env('DATABASE_URL')
+        env('DATABASE_URL')
     ),
 }
 
