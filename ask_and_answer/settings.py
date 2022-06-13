@@ -23,11 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-0jucsw#b0283hudro0iqtr37ql%@_ud@&v^xt=rg7ksee6nkc*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     '.herokuapp.com',
-    '127.0.0.1',
 ]
 
 
@@ -88,10 +87,10 @@ WSGI_APPLICATION = 'ask_and_answer.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'accounts_bd_pg',
+        'NAME': 'ask_and_answer_database',
         'USER': 'postgres',
         'PASSWORD': '123asd159ZXC',
-        'HOST': 'localhost',
+        'HOST': '.herokuapp.com',
         'PORT': '5432',
     }
 }
@@ -147,9 +146,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 LOGOUT_REDIRECT_URL = '/'
 
-INTERNAL_IPS = [
-    "127.0.0.1",
-]
+INTERNAL_IPS = []
 
 
 # If user is staff, show debug_toolbar
