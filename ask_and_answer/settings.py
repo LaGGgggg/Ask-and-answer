@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 import environ
 import dj_database_url
+import django_heroku
 from pathlib import Path
 
 env = environ.Env()
@@ -90,12 +91,10 @@ WSGI_APPLICATION = 'ask_and_answer.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(
-        engine='django.db.backends.postgresql',
-        conn_max_age=600,
-        env=env('DATABASE_URL'),
-    ),
+    'default': dj_database_url.config(),
 }
+
+django_heroku.settings(locals())
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
