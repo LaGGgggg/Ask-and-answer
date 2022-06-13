@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 import environ
+import dj_database_url
 from pathlib import Path
 
 env = environ.Env()
@@ -89,14 +90,9 @@ WSGI_APPLICATION = 'ask_and_answer.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': env('NAME'),
-        'USER': env('USER'),
-        'PASSWORD': env('PASSWORD'),
-        'HOST': env('HOST'),
-        'PORT': '5432',
-    }
+    'default': dj_database_url.config(
+        default=env('DATABASE_URL')
+    ),
 }
 
 # Password validation
