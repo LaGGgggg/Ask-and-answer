@@ -89,13 +89,13 @@ WSGI_APPLICATION = 'ask_and_answer.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-database = dj_database_url.config(engine='django.db.backends.postgresql', conn_max_age=600)
-
 DATABASES = {
-    'default': database,
+    'default': dj_database_url.config(
+        engine='django.db.backends.postgresql',
+        conn_max_age=600,
+        env=env('DATABASE_URL'),
+    ),
 }
-
-DATABASES['default'].update(env('DATABASE_URL'))
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
