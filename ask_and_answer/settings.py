@@ -89,11 +89,10 @@ WSGI_APPLICATION = 'ask_and_answer.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+database = dj_database_url.config(engine='django.db.backends.postgresql', conn_max_age=600)
+
 DATABASES = {
-    'default': dj_database_url.config(
-        engine='django.db.backends.postgresql',
-        conn_max_age=600,
-    ),
+    'default': database,
 }
 
 DATABASES['default'].update(env('DATABASE_URL'))
