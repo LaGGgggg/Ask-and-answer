@@ -10,7 +10,13 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+import environ
+import dj_database_url
+import django_heroku
 from pathlib import Path
+
+env = environ.Env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,7 +33,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '.herokuapp.com',
-    '127.0.0.1',
 ]
 
 
@@ -86,16 +91,10 @@ WSGI_APPLICATION = 'ask_and_answer.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'accounts_bd_pg',
-        'USER': 'postgres',
-        'PASSWORD': '123asd159ZXC',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
+    'default': dj_database_url.config(),
 }
 
+django_heroku.settings(locals())
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -147,9 +146,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 LOGOUT_REDIRECT_URL = '/'
 
-INTERNAL_IPS = [
-    "127.0.0.1",
-]
+INTERNAL_IPS = []
 
 
 # If user is staff, show debug_toolbar
