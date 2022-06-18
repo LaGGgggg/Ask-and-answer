@@ -26,14 +26,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-0jucsw#b0283hudro0iqtr37ql%@_ud@&v^xt=rg7ksee6nkc*'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# Danger! If you need to set DEBUG=False, type empty environment variable. It is needed,
+# because no empty string in bool(), return True value.
+DEBUG = bool(env('DEBUG'))
 
-ALLOWED_HOSTS = [
-    '.herokuapp.com',
-]
+# It set by Heroku
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -146,6 +147,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 LOGOUT_REDIRECT_URL = '/'
 
+# It set by Heroku
 INTERNAL_IPS = []
 
 
