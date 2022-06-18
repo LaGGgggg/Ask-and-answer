@@ -11,8 +11,6 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 import environ
-import dj_database_url
-import django_heroku
 from pathlib import Path
 
 env = environ.Env()
@@ -26,15 +24,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-0jucsw#b0283hudro0iqtr37ql%@_ud@&v^xt=rg7ksee6nkc*'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(env('DEBUG'))
 
 ALLOWED_HOSTS = [
-    '.herokuapp.com',
+    env('ALLOWED_HOSTS')
 ]
-
 
 # Application definition
 
@@ -91,10 +88,15 @@ WSGI_APPLICATION = 'ask_and_answer.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(),
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': env('DB_NAME'),
+        'USER': env('DB_USER'),
+        'PASSWORD': env('DB_PASSWORD'),
+        'HOST': env('DB_HOST'),
+        'PORT': env('DB_PORT'),
+    }
 }
-
-django_heroku.settings(locals())
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -146,7 +148,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 LOGOUT_REDIRECT_URL = '/'
 
-INTERNAL_IPS = []
+INTERNAL_IPS = [
+    env('INTERNAL_IPS'),
+]
 
 
 # If user is staff, show debug_toolbar
