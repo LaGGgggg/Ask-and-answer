@@ -19,7 +19,7 @@ env = environ.Env()
 environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -157,5 +157,5 @@ def show_debug_toolbar(request):
 
 
 DEBUG_TOOLBAR_CONFIG = {
-    'SHOW_TOOLBAR_CALLBACK': 'ask_and_answer.settings.show_debug_toolbar',
+    'SHOW_TOOLBAR_CALLBACK': 'ask_and_answer.settings.prod.show_debug_toolbar',
 }
