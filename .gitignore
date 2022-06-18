@@ -1,5 +1,4 @@
 __init__.py
 __pycache__
 *.pyc
-*.cpython-310.pyc
 .env
