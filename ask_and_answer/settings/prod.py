@@ -161,4 +161,5 @@ DEBUG_TOOLBAR_CONFIG = {
     'SHOW_TOOLBAR_CALLBACK': 'ask_and_answer.settings.prod.show_debug_toolbar',
 }
 
+# Default setting for whitenoise
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
