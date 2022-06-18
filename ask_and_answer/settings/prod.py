@@ -137,7 +137,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR
 
 STATICFILES_DIRS = [
-    BASE_DIR.joinpath('static')
+    BASE_DIR.joinpath('static'),
 ]
 
 # Default primary key field type
