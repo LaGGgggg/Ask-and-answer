@@ -159,6 +159,8 @@ the address for contacting technical support and whether the user is authenticat
 (If yes, then his login will be written there.)
 
 #### [View website>>](https://ask-and-answer-by-lagggggg.herokuapp.com/)
+P.S. Sorry for the long loading, unfortunately after an hour of inactivity the project "falls asleep" and 
+it needs more time for the first load :(.This is due to the specifics of the free Heroku that hosts the site.
 
 # Authors
 
