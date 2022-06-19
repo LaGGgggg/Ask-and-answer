@@ -105,11 +105,11 @@ python manage.py runserver
 If the user is not authenticated, he will see the registration and authorization buttons in the right sidebar,
 linking him to the corresponding pages.
 #### [index.html](templates/home_page_app/index.html)
-![](https://github.com/LaGGgggg/Ask-and-answer/blob/main/site_screens/main_without_authorization.png)
+![](https://user-images.githubusercontent.com/97909133/174478166-6a094702-b391-4e35-a3da-f4df5e2121f1.png)
 #### [login.html](templates/registration/login.html)
-![](https://github.com/LaGGgggg/Ask-and-answer/blob/main/site_screens/sign_up.png)
+![](https://user-images.githubusercontent.com/97909133/174478197-03e9b4f4-8967-473f-92aa-c759dc0cb1a5.png)
 #### [sign_up.html](templates/registration/sign_up.html)
-![](https://github.com/LaGGgggg/Ask-and-answer/blob/main/site_screens/sign_in.png)
+![](https://user-images.githubusercontent.com/97909133/174478209-4e57c83d-b8da-4942-9361-41557c4b487d.png)
 Also on the page you can see the latest questions and find the question by name.
 If you need to see the text of the question, then just click on it to go.
 (About this page a little further.)
@@ -117,7 +117,7 @@ If you need to see the text of the question, then just click on it to go.
 If the user is authenticated, then instead of the authorization and registration buttons,
 he will see the buttons for going to the profile and creating a question.(More on that later.)
 #### [index.html](templates/home_page_app/index.html)
-![](https://github.com/LaGGgggg/Ask-and-answer/blob/main/site_screens/main_with_authorization.png)
+![](https://user-images.githubusercontent.com/97909133/174478232-2eb095b1-5c2c-465e-963e-3266faed79db.png)
 
 ## User profile page
 
@@ -125,7 +125,7 @@ On the profile page, the user can see his balance (cash) and the history of its 
 (up to the last 30 transactions). The sidebar contains buttons for going to the main page,
 creating a question (more on that later) and logging out of the account.
 #### [profile.html](templates/accounts_app/user_profile.html)
-![](https://github.com/LaGGgggg/Ask-and-answer/blob/main/site_screens/user_profile.png)
+![](https://user-images.githubusercontent.com/97909133/174478258-0c7763a0-a515-49c8-9b01-ab5229ee4937.png)
 
 ## Create question page
 
@@ -133,7 +133,7 @@ On the question creation page, you can see the exit button to the menu and field
 the title and content of the question (there is a check for the uniqueness of the question and 
 the length of the title (9<X<31) and content (X>80)). For creating a question, the user is awarded points.
 #### [create_question.html](templates/home_page_app/create_question.html)
-![](https://github.com/LaGGgggg/Ask-and-answer/blob/main/site_screens/create_question.png)
+![](https://user-images.githubusercontent.com/97909133/174478275-eb5a83e7-3e01-4925-879f-40a641d5892a.png)
 
 ## View question page
 
@@ -143,14 +143,14 @@ comments (Their data is similar to the question data.), as well as a field for c
 You can like the question and comments (you can remove the like by pressing the button again.), this is done with ajax.
 (The Like button can only be seen by authorized users.)
 #### [view_question.html](templates/home_page_app/view_question.html)
-![](https://github.com/LaGGgggg/Ask-and-answer/blob/main/site_screens/view_question.png)
+![](https://user-images.githubusercontent.com/97909133/174478294-0ac28c32-7995-4a70-b800-24135f166b0c.png)
 
 ## Superuser function
 
 If you are logged in as a superuser, then on each page of the site there will be a button 
 that will take you to the admin panel.
-![](https://github.com/LaGGgggg/Ask-and-answer/blob/main/site_screens/superuser_function_1.png)
-![](https://github.com/LaGGgggg/Ask-and-answer/blob/main/site_screens/superuser_function_2.png)
+![](https://user-images.githubusercontent.com/97909133/174478317-d93c0343-49d7-4d11-8b82-830ea1e72c7b.png)
+![](https://user-images.githubusercontent.com/97909133/174478327-9a5c5860-d861-48d3-9301-a6724890e83b.png)
 
 ## Footer functional
 
