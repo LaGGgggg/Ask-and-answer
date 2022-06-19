@@ -11,6 +11,8 @@ there is a user balance system (points are issued for writing questions and comm
 and its history, and also it is possible to administer the site through the built-in 
 django admin panel. The project uses postgresql and ajax.
 
+#### [View website>>](https://ask-and-answer-by-lagggggg.herokuapp.com/)
+
 # How to start the project?
 
 ### 1. Clone this repository
@@ -139,6 +141,7 @@ On the view question page, you can see the question data (Title, text, creation 
 comments (Their data is similar to the question data.), as well as a field for creating them
 (There is a uniqueness check, points are awarded for creating a comment.).
 You can like the question and comments (you can remove the like by pressing the button again.), this is done with ajax.
+(The Like button can only be seen by authorized users.)
 #### [view_question.html](templates/home_page_app/view_question.html)
 ![](https://github.com/LaGGgggg/Ask-and-answer/blob/main/site_screens/view_question.png)
 
@@ -154,6 +157,8 @@ that will take you to the admin panel.
 In the footer, which is present on all pages of the site, you can see the current time,
 the address for contacting technical support and whether the user is authenticated.
 (If yes, then his login will be written there.)
+
+#### [View website>>](https://ask-and-answer-by-lagggggg.herokuapp.com/)
 
 # Authors
 
