@@ -21,30 +21,69 @@ django admin panel. The project uses postgresql and ajax.
 git clone https://github.com/LaGGgggg/Ask-and-answer.git
 cd Ask-and-answer
 ```
-### 2. Install [Pipenv](https://pipenv.pypa.io/en/latest/)
+### 2. Create the virtualenv:
 
-### 3. Create the virtualenv
+#### With [pipenv](https://pipenv.pypa.io/en/latest/):
 
 ```bash
-pipenv shell
+pip install --user pipenv
+pipenv shell  # create and activate
 ```
 
-### 4. Install python packages
+#### Or classic:
+
+```bash
+python -m venv .venv  # create
+.venv\Scripts\activate.bat   # activate
+```
+
+### 3. Install python packages
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 5. Run database migrations
+### 4. Create postgresql database
+
+You can create another database but my project is configured to work with postgresql
+and in this case you had to edit the database settings.
+To install your postgresql database you need:
+1. Install [this](https://www.postgresql.org/download/)
+2. Open pgadmin
+3. Create a new one or use the default database
+
+### 5. Add environment variables
+
+Create file `.env` in `ask_and_answer/settings`, such it `ask_and_answer/settings/.env`. Next, paste it in `.env`:
+```
+SECRET_KEY=
+
+# If empty => return False, else => return True.
+DEBUG=True
+
+ALLOWED_HOSTS=127.0.0.1
+
+DB_NAME=postgres
+DB_USER=postgres
+DB_PASSWORD=
+DB_HOST=localhost
+DB_PORT=5432
+
+INTERNAL_IPS=127.0.0.1
+```
+You need to add SECRET_KEY (It can be random, this is good [site](https://djecrety.ir/).) and database settings.
+(DB_NAME, DB_USER and DB_PASSWORD.) All another is default, and you don't need to change it.
+
+### 6. Run database migrations
 
 ```bash
 python manage.py migrate
 ```
 
-### 6. Run development server
+### 7. Run development server (with development settings)
 
 ```bash
-python manage.py runserver
+python manage.py runserver --settings=ask_and_answer.settings.dev
 ```
 
 # Quickly about the functionality of the site
