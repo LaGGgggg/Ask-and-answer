@@ -37,6 +37,8 @@ python -m venv .venv  # create
 .venv\Scripts\activate.bat   # activate
 ```
 
+## For local server:
+
 ### 3. Install python packages
 
 ```bash
@@ -71,7 +73,7 @@ DB_PORT=5432
 
 INTERNAL_IPS=127.0.0.1
 ```
-You need to add SECRET_KEY (It can be random, this is good [site](https://djecrety.ir/).) and database settings.
+You need to add SECRET_KEY (It can be random, this is a good [site](https://djecrety.ir/).) and database settings.
 (DB_NAME, DB_USER and DB_PASSWORD.) All another is default, and you don't need to change it.
 
 ### 6. Run database migrations
@@ -84,6 +86,53 @@ python manage.py migrate
 
 ```bash
 python manage.py runserver --settings=ask_and_answer.settings.dev
+```
+
+## For heroku server:
+
+### 3. Sign up for a heroku account if you don't have one: [heroku.com](https://heroku.com/)
+
+### 4. Install [Heroku CLI](https://devcenter.heroku.com/articles/getting-started-with-python#set-up)
+
+### 5. Login to heroku in console
+
+```bash
+heroku login
+```
+
+### 6. Create app
+
+```bash
+heroku create <your app name>
+heroku git:remote -a <your app name>
+```
+
+### 7. Setting app environment variables
+
+```bash
+heroku config:set DJANGO_SETTINGS_MODULE=ask_and_answer.settings.prod
+heroku config:set DEBUG=  # Should be empty for production deploy
+heroku config:set SECRET_KEY= <your secret_key>  # It can be random, this is a good site: https://djecrety.ir/
+```
+
+### 8. Push project to heroku
+
+```bash
+git push heroku production:master
+```
+
+### 9. Setting up dyno and running migrations
+
+```bash
+heroku ps:scale python=1
+heroku run python3 manage.py migrate
+heroku ps:scale web=1
+```
+
+### 10. Open your website
+
+```bash
+heroku open
 ```
 
 # Quickly about the functionality of the site
