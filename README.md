@@ -121,11 +121,9 @@ heroku config:set SECRET_KEY= <your secret_key>  # It can be random, this is a g
 git push heroku production:master
 ```
 
-### 9. Setting up dyno and running migrations
+### 9. Setting up web dyno (Without it, you won't be able to see the site)
 
 ```bash
-heroku ps:scale python=1
-heroku run python3 manage.py migrate
 heroku ps:scale web=1
 ```
 
