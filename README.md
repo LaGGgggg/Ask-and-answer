@@ -13,6 +13,12 @@ django admin panel. The project uses postgresql and ajax.
 
 #### [View website>>](https://ask-and-answer-by-lagggggg.herokuapp.com/)
 
+# Requirements
+
+python >= **3.9**<br>
+python packages: [requirements.txt](requirements.txt) (How install in "How to start the project?")<br>
+[git](https://git-scm.com/downloads) (For project installation)
+
 # How to start the project?
 
 ### 1. Clone this repository
