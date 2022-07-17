@@ -7,7 +7,7 @@ import json
 from .forms import *
 from .models import *
 
-from accounts_app.models import Profile
+from accounts_app.models import Profile   # ignore this import error, all works correct.
 
 
 def view_main(request):

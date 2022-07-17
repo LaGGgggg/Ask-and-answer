@@ -62,7 +62,7 @@ To install your postgresql database you need:
 
 ### 5. Add environment variables
 
-Create file `.env` in `ask_and_answer/settings`, such it `ask_and_answer/settings/.env`. Next, paste it in `.env`:
+Create file `.env` in `ask_and_answer`, such it `ask_and_answer/.env`. Next, paste it in `.env`:
 ```
 SECRET_KEY=
 
