@@ -2,6 +2,9 @@
 ![GitHub watchers](https://img.shields.io/github/watchers/LaGGgggg/Ask-and-answer)
 ![GitHub last commit](https://img.shields.io/github/last-commit/LaGGgggg/Ask-and-answer)
 
+> [!WARNING]  
+> This repository has been **archived** and is no longer maintained
+
 # Ask-and-answer
 
 It's simple, this is a site where you can ask questions and answer them. 
@@ -10,8 +13,6 @@ the ability to create questions and comments, like them,
 there is a user balance system (points are issued for writing questions and comments.) 
 and its history, and also it is possible to administer the site through the built-in 
 django admin panel. The project uses postgresql and ajax.
-
-#### [View website>>](https://ask-and-answer-by-lagggggg.herokuapp.com/)
 
 # Requirements
 
